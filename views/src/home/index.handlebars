@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="../../../images/logo.png" type="image/png"><meta charset="UTF-8">
+    <!-- Define o ícone exibido na aba do navegador -->
+    <link rel="icon" href="../../../images/logo.png" type="image/png">
+    <!-- Define a codificação de caracteres do documento -->
+    <meta charset="UTF-8">
+    <!-- Ajusta a visualização para dispositivos móveis, utilizando a escala de 1 para o tamanho real -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Título da página exibido na aba do navegador -->
     <title>IFSP - TutorTime</title>
+    <!-- Importa o arquivo de estilos CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-        <!-- header -->
+    <!-- Área do cabeçalho do site -->
     <header>
         <div class="logo">
             <div class="imageLogo">
+                <!-- Exibe a imagem do logo -->
                 <img src="logo.png" alt="Logo TutorTime">
             </div>
-            TutorTime - IFSP
+            TutorTime - IFSP <!-- Texto exibido ao lado do logo -->
         </div>
+        <!-- Menu de navegação principal -->
         <ul class="menu">
             <li><a href="#">Home</a></li>
             <li><a href="/about">About</a></li>
@@ -22,205 +30,246 @@
         </ul>
     </header>
 
-    <!-- slider -->
-
+    <!-- Área do slider (carrossel) -->
     <div class="slider">
-        <!-- list Items -->
+        <!-- Lista principal de itens do slider -->
         <div class="list">
+            <!-- Primeiro item do slider com a classe "active" para indicar que é o item inicial exibido -->
             <div class="item active">
+                <!-- Imagem do primeiro item, utilizando dados dinâmicos: {{primeiro.imagemUrl}} -->
                 <img src={{primeiro.imagemUrl}}>
                 <div class="content">
-                    
                     <p>Encontre a sua monitoria</p>
-
+                    <!-- Link que leva à página específica da matéria, nome dinâmico: {{primeiro.nome}} -->
                     <a href="home/{{primeiro.nome}}"> 
                         <h2>
-                            {{primeiro.nome}} <!-- Aqui estamos acessando corretamente o nome da matéria -->
-                        
+                            {{primeiro.nome}} <!-- Aqui estamos acessando o nome da matéria de forma dinâmica -->
                         </h2>
                     </a> 
-
                 </div>
             </div>
+
+            <!-- Itera sobre o array "Existente" para criar outros itens do slider dinamicamente -->
             {{#each Existente}}
             <div class="item">
+                <!-- Imagem do item atual da iteração -->
                 <img src={{imagemUrl}}>
                 <div class="content">
-                    
                     <p>Encontre a sua monitoria</p>
-
+                    <!-- Link para a página da matéria, gerado dinamicamente -->
                     <a href="home/{{nome}}"> 
                         <h2>
-                            {{nome}} <!-- Aqui estamos acessando corretamente o nome da matéria -->
-                        
+                            {{nome}} <!-- Nome da matéria do item atual -->
                         </h2>
                     </a> 
                 </div>
             </div>
             {{/each}}           
         </div>
-        <!-- button arrows -->
+
+        <!-- Botões de navegação do slider (anterior e próximo) -->
         <div class="arrows">
             <button id="prev"><</button>
             <button id="next">></button>
         </div>
-        <!-- thumbnail -->
+
+        <!-- Área de miniaturas (thumbnails) abaixo do slider para navegação rápida -->
         <div class="thumbnail">
-    
+
+            <!-- Primeira miniatura, corresponde ao primeiro item do slider -->
             <div class="item active">
                 <img src="{{primeiro.imagemUrl}}">
                 <div class="content">
-                    {{primeiro.nome}} <!-- Aqui estamos acessando corretamente o nome da matéria -->
+                    {{primeiro.nome}} <!-- Nome da matéria exibida na miniatura do primeiro item -->
                 </div>
             </div>
 
+            <!-- Itera sobre o array "Existente" para criar as miniaturas correspondentes -->
             {{#each Existente}}
             <div class="item">
                 <img src={{imagemUrl}}>
                 <div class="content">
-                    {{nome}} <!-- Aqui estamos acessando corretamente o nome da matéria -->
+                    {{nome}} <!-- Nome da matéria para cada miniatura -->
                 </div>
             </div>
             {{/each}}
         </div>
     </div>
 
+    <!-- Importa o arquivo JavaScript principal da aplicação -->
     <script src="app.js"></script>
 </body>
 </html>
-    <script >
-        let items = document.querySelectorAll('.slider .list .item');
-let next = document.getElementById('next');
-let prev = document.getElementById('prev');
-let thumbnails = document.querySelectorAll('.thumbnail .item');
 
-// config param
-let countItem = items.length;
-let itemActive = 0;
-// event next click
-next.onclick = function(){
-    itemActive = itemActive + 1;
-    if(itemActive >= countItem){
-        itemActive = 0;
-    }
-    showSlider();
-}
-//event prev click
-prev.onclick = function(){
-    itemActive = itemActive - 1;
-    if(itemActive < 0){
-        itemActive = countItem - 1;
-    }
-    showSlider();
-}
-// auto run slider
-let refreshInterval = setInterval(() => {
-    next.click();
-}, 5000)
-function showSlider(){
-    // remove item active old
-    let itemActiveOld = document.querySelector('.slider .list .item.active');
-    let thumbnailActiveOld = document.querySelector('.thumbnail .item.active');
-    itemActiveOld.classList.remove('active');
-    thumbnailActiveOld.classList.remove('active');
+<!-- Bloco de script adicional -->
+<script>
+    // Seleciona todos os itens do slider
+    let items = document.querySelectorAll('.slider .list .item');
+    // Seleciona os botões "próximo" e "anterior"
+    let next = document.getElementById('next');
+    let prev = document.getElementById('prev');
+    // Seleciona todos os itens de miniatura
+    let thumbnails = document.querySelectorAll('.thumbnail .item');
 
-    // active new item
-    items[itemActive].classList.add('active');
-    thumbnails[itemActive].classList.add('active');
-    setPositionThumbnail();
+    // 1. Variáveis de controle
+    let countItem = items.length;    // Quantidade total de itens no slider
+    let itemActive = 0;             // Índice do item atualmente exibido (inicia em 0, o primeiro item)
 
-    // clear auto time run slider
-    clearInterval(refreshInterval);
-    refreshInterval = setInterval(() => {
-        next.click();
-    }, 5000)
-}
-function setPositionThumbnail () {
-    let thumbnailActive = document.querySelector('.thumbnail .item.active');
-    let rect = thumbnailActive.getBoundingClientRect();
-    if (rect.left < 0 || rect.right > window.innerWidth) {
-        thumbnailActive.scrollIntoView({ behavior: 'smooth', inline: 'nearest' });
-    }
-}
-
-// click thumbnail
-thumbnails.forEach((thumbnail, index) => {
-    thumbnail.addEventListener('click', () => {
-        itemActive = index;
+    // Função executada quando o botão "next" é clicado
+    next.onclick = function(){
+        // Avança para o próximo item incrementando o índice
+        itemActive = itemActive + 1;
+        
+        // Se o índice ultrapassar a quantidade de itens, volta para o início (looping)
+        if(itemActive >= countItem){
+            itemActive = 0;
+        }
+        
+        // Atualiza a visualização do slider
         showSlider();
-    })
-})
-
-document.getElementById('newSubjectForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    let subjectName = document.getElementById('subjectName').value;
-    let subjectImageFile = document.getElementById('subjectImageFile').files[0];
-    let subjectImageUrl = document.getElementById('subjectImageUrl').value;
-    let subjectCourses = document.getElementById('subjectCourses').value;
-    let responsibleTeacher = document.getElementById('responsibleTeacher').value;
-    let responsibleMonitor = document.getElementById('responsibleMonitor').value;
-    let monitoringDaysTimes = document.getElementById('monitoringDaysTimes').value;
-    let roomAccessLink = document.getElementById('roomAccessLink').value;
-
-    if (subjectImageFile) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            let subjectImage = e.target.result;
-            addNewSubject(subjectName, subjectImage, subjectCourses, responsibleTeacher, responsibleMonitor, monitoringDaysTimes, roomAccessLink);
-        };
-        reader.readAsDataURL(subjectImageFile);
-    } else if (subjectImageUrl) {
-        addNewSubject(subjectName, subjectImageUrl, subjectCourses, responsibleTeacher, responsibleMonitor, monitoringDaysTimes, roomAccessLink);
-    } else {
-        alert("Por favor, forneça uma imagem ou um link para a imagem.");
     }
-});
 
-function addNewSubject(name, image, courses, teacher, monitor, daysTimes, roomLink) {
-    // Adiciona novo item ao slider
-    let newItem = document.createElement('div');
-    newItem.classList.add('item');
-    newItem.innerHTML = `
-        <img src="${image}">
-        <div class="content">
-            <p>Encontre a sua monitoria</p>
-            <a href="../${name.toLowerCase()}/${name.toLowerCase()}.html"> 
-                <h2>${name}</h2>
-            </a> 
-            <p>
-                Cursos sugeridos: ${courses}.
-            </p>
-            <p>Professor Responsável: ${teacher}</p>
-            <p>Monitor Responsável: ${monitor}</p>
-            <p>Dias e Horários da Monitoria: ${daysTimes}</p>
-            <p>Sala/Link de Acesso: ${roomLink}</p>
-        </div>
-    `;
-    document.querySelector('.slider .list').appendChild(newItem);
+    // Função executada quando o botão "prev" é clicado
+    prev.onclick = function(){
+        // Volta para o item anterior decrementando o índice
+        itemActive = itemActive - 1;
 
-    // Adiciona novo item à thumbnail
-    let newThumbnail = document.createElement('div');
-    newThumbnail.classList.add('item');
-    newThumbnail.innerHTML = `
-        <img src="${image}">
-        <div class="content">
-            TutorTime - IFSP Jacareí
-        </div>
-    `;
-    document.querySelector('.thumbnail').appendChild(newThumbnail);
+        // Se ficar menor que 0, significa que ultrapassou o primeiro item, então vai para o último
+        if(itemActive < 0){
+            itemActive = countItem - 1;
+        }
 
-    // Cria nova página HTML
-    createNewSubjectPage(name, image, courses, teacher, monitor, daysTimes, roomLink);
+        // Atualiza a visualização do slider
+        showSlider();
+    }
 
-    // Atualiza contagem de itens
-    items = document.querySelectorAll('.slider .list .item');
-    thumbnails = document.querySelectorAll('.thumbnail .item');
-    countItem = items.length;
-}
+    // Configura o intervalo automático para mudar o slide a cada 5 segundos
+    let refreshInterval = setInterval(() => {
+        next.click(); // Simula um clique no botão "next"
+    }, 5000)
 
-function createNewSubjectPage(name, image, courses, teacher, monitor, daysTimes, roomLink) {
-    let newPageContent = `
+    // Função que atualiza a exibição do slider de acordo com o item ativo
+    function showSlider(){
+        // 1. Remove a classe 'active' do item e da miniatura atualmente ativos
+        let itemActiveOld = document.querySelector('.slider .list .item.active');
+        let thumbnailActiveOld = document.querySelector('.thumbnail .item.active');
+        itemActiveOld.classList.remove('active');
+        thumbnailActiveOld.classList.remove('active');
+
+        // 2. Adiciona a classe 'active' ao novo item e à nova miniatura ativos
+        items[itemActive].classList.add('active');
+        thumbnails[itemActive].classList.add('active');
+        
+        // 3. Ajusta a posição da miniatura para garantir que ela esteja visível (em caso de rolagem)
+        setPositionThumbnail();
+
+        // 4. Reseta o intervalo automático de 5 segundos
+        clearInterval(refreshInterval);
+        refreshInterval = setInterval(() => {
+            next.click();
+        }, 5000)
+    }
+
+    // Função que garante que a miniatura ativa esteja visível na área de visualização
+    function setPositionThumbnail () {
+        let thumbnailActive = document.querySelector('.thumbnail .item.active');
+        let rect = thumbnailActive.getBoundingClientRect();
+        // Se a miniatura ativa estiver fora da área visível da janela, faz a rolagem suave
+        if (rect.left < 0 || rect.right > window.innerWidth) {
+            thumbnailActive.scrollIntoView({ behavior: 'smooth', inline: 'nearest' });
+        }
+    }
+
+    // Adiciona evento de clique em cada miniatura para navegar diretamente para o item correspondente
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener('click', () => {
+            // Ao clicar na miniatura, o índice do item ativo passa a ser o da miniatura clicada
+            itemActive = index;
+            showSlider();
+        })
+    })
+
+    // Evento de envio do formulário de novo assunto/monitoria
+    document.getElementById('newSubjectForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Pega os valores dos campos do formulário
+        let subjectName = document.getElementById('subjectName').value;
+        let subjectImageFile = document.getElementById('subjectImageFile').files[0];
+        let subjectImageUrl = document.getElementById('subjectImageUrl').value;
+        let subjectCourses = document.getElementById('subjectCourses').value;
+        let responsibleTeacher = document.getElementById('responsibleTeacher').value;
+        let responsibleMonitor = document.getElementById('responsibleMonitor').value;
+        let monitoringDaysTimes = document.getElementById('monitoringDaysTimes').value;
+        let roomAccessLink = document.getElementById('roomAccessLink').value;
+
+        // Verifica se foi fornecido um arquivo de imagem
+        if (subjectImageFile) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let subjectImage = e.target.result;
+                // Adiciona o novo assunto ao slider e miniaturas
+                addNewSubject(subjectName, subjectImage, subjectCourses, responsibleTeacher, responsibleMonitor, monitoringDaysTimes, roomAccessLink);
+            };
+            // Lê o arquivo de imagem como Base64
+            reader.readAsDataURL(subjectImageFile);
+        } else if (subjectImageUrl) {
+            // Caso tenha sido fornecida uma URL de imagem
+            addNewSubject(subjectName, subjectImageUrl, subjectCourses, responsibleTeacher, responsibleMonitor, monitoringDaysTimes, roomAccessLink);
+        } else {
+            // Caso não tenha sido fornecida imagem de nenhuma forma
+            alert("Por favor, forneça uma imagem ou um link para a imagem.");
+        }
+    });
+
+    // Função para adicionar um novo assunto (matéria) ao slider
+    function addNewSubject(name, image, courses, teacher, monitor, daysTimes, roomLink) {
+        // Cria um novo elemento de item para o slider
+        let newItem = document.createElement('div');
+        newItem.classList.add('item');
+        newItem.innerHTML = `
+            <img src="${image}">
+            <div class="content">
+                <p>Encontre a sua monitoria</p>
+                <a href="../${name.toLowerCase()}/${name.toLowerCase()}.html"> 
+                    <h2>${name}</h2>
+                </a> 
+                <p>
+                    Cursos sugeridos: ${courses}.
+                </p>
+                <p>Professor Responsável: ${teacher}</p>
+                <p>Monitor Responsável: ${monitor}</p>
+                <p>Dias e Horários da Monitoria: ${daysTimes}</p>
+                <p>Sala/Link de Acesso: ${roomLink}</p>
+            </div>
+        `;
+        // Adiciona o novo item na lista do slider
+        document.querySelector('.slider .list').appendChild(newItem);
+
+        // Cria uma nova miniatura para o assunto adicionado
+        let newThumbnail = document.createElement('div');
+        newThumbnail.classList.add('item');
+        newThumbnail.innerHTML = `
+            <img src="${image}">
+            <div class="content">
+                TutorTime - IFSP Jacareí
+            </div>
+        `;
+        // Adiciona a nova miniatura na área de thumbnails
+        document.querySelector('.thumbnail').appendChild(newThumbnail);
+
+        // Cria a nova página HTML (simulação de criação de página)
+        createNewSubjectPage(name, image, courses, teacher, monitor, daysTimes, roomLink);
+
+        // Atualiza as variáveis (re-seleciona itens e miniaturas) porque agora há mais itens
+        items = document.querySelectorAll('.slider .list .item');
+        thumbnails = document.querySelectorAll('.thumbnail .item');
+        countItem = items.length;
+    }
+
+    // Função que cria uma nova página HTML para o novo assunto, exibindo suas informações
+    function createNewSubjectPage(name, image, courses, teacher, monitor, daysTimes, roomLink) {
+        let newPageContent = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -252,20 +301,22 @@ function createNewSubjectPage(name, image, courses, teacher, monitor, daysTimes,
     </div>
 </body>
 </html>
-    `;
+        `;
 
-    // Salva a nova página (simulação)
-    console.log(`Nova página criada para ${name}:`, newPageContent);
-}
-
-document.getElementById('toggleFormButton').addEventListener('click', function() {
-    let form = document.getElementById('newSubjectForm');
-    if (form.style.display === 'none' || form.style.display === '') {
-        form.style.display = 'block';
-    } else {
-        form.style.display = 'none';
+        // Aqui estamos apenas exibindo no console o conteúdo da página criada (simulação de salvamento)
+        console.log(`Nova página criada para ${name}:`, newPageContent);
     }
-});
-    </script>
+
+    // Evento para exibir/ocultar o formulário de adicionar nova matéria
+    document.getElementById('toggleFormButton').addEventListener('click', function() {
+        let form = document.getElementById('newSubjectForm');
+        // Alterna a exibição do formulário
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>
