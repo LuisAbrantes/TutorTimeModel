@@ -25,29 +25,39 @@
         <div class='monitoria-grid'>
             {{#each monitorias}}
                 <div class='monitoria-card'>
+                    <div class='monitoria-badge'>{{this.Materia.nome}}</div>
                     <img
                         src='{{this.imagemUrl}}'
                         alt='{{this.nome}}'
                         class='monitoria-image'
                     />
-                    <h2 class='monitoria-title'>{{this.nome}}</h2>
-                    <p class='monitoria-details'>
-                        Dia:
-                        {{this.dia}}
-                        <br />
-                        Horário:
-                        {{this.horario}}
-                        <br />
-                        Local:
-                        {{this.local}}
-                        <br />
-                        Professor:
-                        {{this.Professor.nome}}
-                        <br />
-                        Monitor:
-                        {{this.Monitor.nome}}
-                    </p>
-                    <p class='monitoria-desc'>{{this.descricao}}</p>
+                    <div class='monitoria-content'>
+                        <h2 class='monitoria-title'>Monitoria
+                            {{this.Materia.nome}}</h2>
+                        <p class='monitoria-details'>
+                            <strong>Dia:</strong>
+                            {{this.dia}}
+                            <br />
+                            <strong>Horário:</strong>
+                            {{this.horario}}
+                            <br />
+                            <strong>Local:</strong>
+                            {{this.local}}
+                            <br />
+                            <strong>Professor:</strong>
+                            {{this.Professor.nome}}
+                            <br />
+                            <strong>Monitor:</strong>
+                            {{this.Monitor.nome}}
+                        </p>
+                        <p class='monitoria-desc'>{{this.descricao}}</p>
+                        <div class='monitoria-actions'>
+                            <a
+                                href='/inscrito/{{this.id}}'
+                                class='monitoria-btn'
+                            >Inscrever-se</a>
+                        </div>
+                    </div>
                 </div>
             {{/each}}
         </div>
