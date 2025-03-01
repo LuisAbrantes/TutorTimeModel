@@ -1,40 +1,55 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IFSP - TutorTime</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-     <!-- header -->
-    <header>
-        <div class="logo">
-            <div class="imageLogo">
-                <img src="/logo.png" alt="Logo TutorTime">
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>IFSP - TutorTime</title>
+        <link rel='stylesheet' href='/style.css' />
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <div class='logo'>
+                <div class='imageLogo'>
+                    <img src='/logo.png' alt='Logo TutorTime' />
+                </div>
+                TutorTime - IFSP
             </div>
-            TutorTime - IFSP
+            <ul class='menu'>
+                <a href='/home'><li>Home</li></a>
+                <a href='/about'>About</a>
+                <a href='/manage'><li>Manage</li></a>
+            </ul>
+        </header>
+        <h1>Monitorias de {{REQ}}: </h1>
+        <hr />
+        <div class='monitoria-grid'>
+            {{#each monitorias}}
+                <div class='monitoria-card'>
+                    <img
+                        src='{{this.imagemUrl}}'
+                        alt='{{this.nome}}'
+                        class='monitoria-image'
+                    />
+                    <h2 class='monitoria-title'>{{this.nome}}</h2>
+                    <p class='monitoria-details'>
+                        Dia:
+                        {{this.dia}}
+                        <br />
+                        Horário:
+                        {{this.horario}}
+                        <br />
+                        Local:
+                        {{this.local}}
+                        <br />
+                        Professor:
+                        {{this.Professor.nome}}
+                        <br />
+                        Monitor:
+                        {{this.Monitor.nome}}
+                    </p>
+                    <p class='monitoria-desc'>{{this.descricao}}</p>
+                </div>
+            {{/each}}
         </div>
-        <ul class="menu">
-            <a href="/home"><li>Home</li></a>
-            <a href="/about">About</a>
-            <a href="/manage"><li>Manage</li></a>
-        </ul>
-    </header>
-    <h1>Monitorias de {{REQ}}: </h1>
-    <hr>
-    {{#each monitorias}}
-    <div class="monitorias">
-        <div class="textomoni">
-        Professor : {{#if Professor}}  <u>{{Professor.nome}}</u>  {{/if}} <br>
-        Monitor : {{#if Monitor}}  <u>{{Monitor.nome}}</u>  {{/if}} <br>
-        Horario :  <u>{{horario}}</u> <br>
-        Dia : <u>{{dia}}</u> <br>
-        Sala/Link : <u>{{local}}</u> <br>
-        <a href="/inscrito/{{id}}"><button class="inscrever">Inscrever-se</button></a>
-        </div>
-    </div>
-    {{/each}}
-</body>
+    </body>
 </html>
