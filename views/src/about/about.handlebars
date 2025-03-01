@@ -1,103 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IFSP - TutorTime</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-    <!-- header -->
-    <header>
-        <div class="logo">
-            <div class="imageLogo">
-                <img src="/logo.png" alt="Logo TutorTime">
+<html lang='en'>
+    <head>
+        <meta charset='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>IFSP - TutorTime | Sobre nós</title>
+        <link rel='stylesheet' href='/style.css' />
+        <link
+            rel='stylesheet'
+            href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
+            integrity='sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=='
+            crossorigin='anonymous'
+            referrerpolicy='no-referrer'
+        />
+    </head>
+    <body>
+        <!-- header -->
+        <header>
+            <div class='logo'>
+                <div class='imageLogo'>
+                    <img src='/logo.png' alt='Logo TutorTime' />
+                </div>
+                TutorTime - IFSP
             </div>
-            TutorTime - IFSP
+            <ul class='menu'>
+                <a href='/home'><li>Home</li></a>
+                <a class='active'>About</a>
+                <a href='/manage'><li>Manage</li></a>
+            </ul>
+        </header>
+
+        <div class='about-hero'>
+            <div class='about-overlay'></div>
+            <div class='about-content'>
+                <h1>Nossa Equipe</h1>
+                <p class='about-subtitle'>Conheça os talentos por trás do
+                    TutorTime - IFSP</p>
+            </div>
         </div>
-        <ul class="menu">
-            <a href="/home"><li>Home</li></a>
-            <a>About</a>
-            <a href="/manage"><li>Manage</li></a>
-        </ul>
-    </header>
 
-    <h1 style="text-align: center;">Sobre os criadores e apoiadores do TutorTime.</h1>
-    
-    <!-- Esquerda -->
-    <div class="profile">
-        <img src="/IMG_5405.jpeg" alt="Foto de Luis Abrantes" class="profile-pic right" width="220">
-        <div class="description left">
-            <h2>Luis Abrantes</h2>
-            <p>Luis é um programador dedicado e o idealizador deste projeto, 
-            trazendo sua paixão por tecnologia e sua habilidade técnica para liderar o desenvolvimento de soluções inovadoras. 
-            Com vasta experiência em diversas linguagens e ferramentas, 
-            ele está sempre em busca de novas maneiras de otimizar processos e garantir a qualidade do código. 
-            Como líder da equipe de desenvolvimento, Luis equilibra seu foco em resultados com a valorização do trabalho 
-            colaborativo, garantindo que cada projeto atinja seu potencial máximo.
-            </p>
+        <div class='about-container'>
+            <div class='about-intro'>
+                <h2>Quem Somos</h2>
+                <p>O TutorTime foi criado por uma equipe dedicada de
+                    desenvolvedores e educadores com o objetivo de revolucionar
+                    a forma como as monitorias são organizadas e acessadas na
+                    sua escola. Nossa missão é facilitar o aprendizado e o
+                    compartilhamento de conhecimento entre alunos e professores.</p>
+                <div class='about-stats'>
+                    <div class='about-stat'>
+                        <span class='stat-number'>10+</span>
+                        <span class='stat-label'>Matérias</span>
+                    </div>
+                    <div class='about-stat'>
+                        <span class='stat-number'>50+</span>
+                        <span class='stat-label'>Monitorias</span>
+                    </div>
+                    <div class='about-stat'>
+                        <span class='stat-number'>400+</span>
+                        <span class='stat-label'>Alunos</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class='team-title'>Equipe de Desenvolvimento</h2>
+            <div class='team-grid'>
+                <div class='team-card'>
+                    <div class='team-card-avatar'>
+                        <img src='/IMG_5405.jpeg' alt='Foto de Luis Abrantes' />
+                    </div>
+                    <div class='team-card-info'>
+                        <h3>Luis Abrantes</h3>
+                        <p class='team-role'>Idealizador & Lead Developer</p>
+                        <p class='team-bio'>Luis é um programador dedicado e o
+                            idealizador deste projeto, trazendo sua paixão por
+                            tecnologia e sua habilidade técnica para liderar o
+                            desenvolvimento de soluções inovadoras.</p>
+                        <div class='team-social'>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='GitHub de Luis Abrantes'
+                            ><i class='icon-github'></i></a>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='LinkedIn de Luis Abrantes'
+                            ><i class='icon-linkedin'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='team-card'>
+                    <div class='team-card-avatar'>
+                        <img
+                            src='https://avatars.githubusercontent.com/u/102776070?v=4'
+                            alt='Foto de Cauã Almeida'
+                        />
+                    </div>
+                    <div class='team-card-info'>
+                        <h3>Cauã Almeida</h3>
+                        <p class='team-role'>Frontend Developer</p>
+                        <p class='team-bio'>Cauã é um desenvolvedor talentoso,
+                            sempre buscando novos conhecimentos em todos os
+                            ramos do desenvolvimento web.</p>
+                        <div class='team-social'>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='GitHub de Cauã Almeida'
+                            ><i class='icon-github'></i></a>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='LinkedIn de Cauã Almeida'
+                            ><i class='icon-linkedin'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='team-card'>
+                    <div class='team-card-avatar'>
+                        <img
+                            src='https://avatars.githubusercontent.com/u/149614643?v=4'
+                            alt='Foto de Isaque Estolano'
+                        />
+                    </div>
+                    <div class='team-card-info'>
+                        <h3>Isaque Estolano</h3>
+                        <p class='team-role'>Backend Developer</p>
+                        <p class='team-bio'>Isaque é um programador
+                            comprometido, sempre buscando novas tecnologias para
+                            implementar em projetos de alto impacto. Sua
+                            dedicação e habilidades técnicas têm contribuído
+                            significativamente para o sucesso dos projetos.</p>
+                        <div class='team-social'>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='GitHub de Isaque Estolano'
+                            ><i class='icon-github'></i></a>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='LinkedIn de Isaque Estolano'
+                            ><i class='icon-linkedin'></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class='team-title'>Diretoria</h2>
+            <div class='team-grid'>
+                <div class='team-card'>
+                    <div class='team-card-avatar'>
+                        <img
+                            src='https://ugc.production.linktr.ee/da1e9db5-3b93-4925-ae2c-7b4f1f78990b_de25c5a4-5028-4723-8edf-7024210fb556.jpeg?io=true&size=avatar-v3_0'
+                            alt='Foto de Giorgia Suzumura'
+                        />
+                    </div>
+                    <div class='team-card-info'>
+                        <h3>Giorgia Suzumura</h3>
+                        <p class='team-role'>Diretora Geral</p>
+                        <p class='team-bio'>Georgia é uma líder excepcional, com
+                            uma abordagem inovadora para a gestão de projetos.
+                            Sua habilidade em coordenar equipes garante que a
+                            empresa esteja sempre à frente.</p>
+                        <div class='team-social'>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='LinkedIn de Giorgia Suzumura'
+                            ><i class='icon-linkedin'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='team-card'>
+                    <div class='team-card-avatar'>
+                        <img
+                            src='https://0.academia-photos.com/199014089/60801351/49068439/s200_rubens.lopes.jpeg'
+                            alt='Foto de Rubens Fernando Lópes'
+                        />
+                    </div>
+                    <div class='team-card-info'>
+                        <h3>Rubens Fernando Lópes</h3>
+                        <p class='team-role'>Diretor Pedagógico</p>
+                        <p class='team-bio'>Rubens possui uma sólida experiência
+                            na área educacional, sendo um especialista em
+                            desenvolvimento de currículos e metodologias de
+                            ensino inovadoras.</p>
+                        <div class='team-social'>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='LinkedIn de Rubens Fernando Lópes'
+                            ><i class='icon-linkedin'></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='team-card'>
+                    <div class='team-card-avatar'>
+                        <img
+                            src='/profile-placeholder.png'
+                            alt='Foto de Arivandro'
+                        />
+                        <div class='avatar-placeholder'>A</div>
+                    </div>
+                    <div class='team-card-info'>
+                        <h3>Arivandro</h3>
+                        <p class='team-role'>Diretor Administrativo</p>
+                        <p class='team-bio'>Com uma mente analítica e foco em
+                            otimização de processos, Arivandro gerencia os
+                            recursos internos da empresa de forma eficiente e
+                            sustentável.</p>
+                        <div class='team-social'>
+                            <a
+                                href='#'
+                                class='social-link'
+                                aria-label='LinkedIn de Arivandro'
+                            ><i class='icon-linkedin'></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <!-- Direita -->
-    <div class="profile">
-        <img src="https://ugc.production.linktr.ee/da1e9db5-3b93-4925-ae2c-7b4f1f78990b_de25c5a4-5028-4723-8edf-7024210fb556.jpeg?io=true&size=avatar-v3_0" alt="Foto de Cauã Almeida" class="profile-pic left">
-        <div class="description right">
-            <h2>Diretora Geral Giorgia Suzumura</h2>
-            <p>Georgia é uma líder excepcional, com uma abordagem inovadora para a gestão de projetos. 
-            Sua habilidade em coordenar equipes e alinhar objetivos estratégicos garante que a empresa esteja sempre à frente.
-            Com vasta experiência no setor, Georgia traz uma visão focada em resultados, 
-            sem perder o foco no desenvolvimento humano de sua equipe.</p>
+
+        <div class='about-cta'>
+            <div class='cta-content'>
+                <h2>Entre para o TutorTime</h2>
+                <p>Quer organização das tutorias para sua escola? Entre em
+                    contato conosco.</p>
+                <a href='/manage' class='cta-button'>Quero revolucionar minha
+                    escola</a>
+            </div>
         </div>
-    </div>
 
-    <!-- Esquerda -->
-    <div class="profile">
-        <img src="https://avatars.githubusercontent.com/u/102776070?v=4" alt="Foto de Luis Abrantes" class="profile-pic right" width="220">
-        <div class="description left">
-            <h2>Cauã Almeida</h2>
-            <p>Cauã é um desenvolvedor talentoso, sempre buscando novas tecnologias para implementar em projetos de alto impacto. Sua dedicação e habilidades técnicas têm contribuído significativamente para o sucesso dos projetos de desenvolvimento.</p>
-        </div>
-    </div>
-
-    <!-- Direita -->
-    <div class="profile">
-        <img src="https://0.academia-photos.com/199014089/60801351/49068439/s200_rubens.lopes.jpeg" alt="Foto de Cauã Almeida" class="profile-pic left">
-        <div class="description right">
-            <h2>Diretor Pedagógico Rubens Fernando Lópes</h2>
-            <p>Rubens possui uma sólida experiência na área educacional, 
-            sendo um especialista em desenvolvimento de currículos e metodologias de ensino. 
-            Sua habilidade em criar programas de treinamento que realmente capacitam os profissionais é 
-            fundamental para o sucesso da equipe. Como Diretor Pedagógico, ele está focado em garantir que os processos de 
-            aprendizagem estejam sempre em constante evolução.</p>
-        </div>
-    </div>
-
-    <!-- Esquerda -->
-    <div class="profile">
-        <img src="https://avatars.githubusercontent.com/u/149614643?v=4" alt="Foto de Luis Abrantes" class="profile-pic right" width="220">
-        <div class="description left">
-            <h2>Isaque Estolano</h2>
-            <p>Isaque é um programador comprometido com a qualidade e o desempenho das soluções que cria. 
-            Com uma abordagem colaborativa, ele sempre busca aprender e compartilhar conhecimento com os colegas, 
-            contribuindo para o crescimento da equipe como um todo.</p>
-        </div>
-    </div>
-
-    <!-- Direita -->
-    <div class="profile">
-        <img src="images/colega_foto.jpg" alt="Foto de Cauã Almeida" class="profile-pic left">
-        <div class="description right">
-            <h2>Diretor Administrativo Arivandro</h2>
-            <p>Com uma mente analítica e foco em otimização de processos, 
-            Arivandro é responsável por gerenciar os recursos internos da empresa de forma eficiente. 
-            Sua abordagem prática e orientada a resultados tem sido fundamental para 
-            a administração dos projetos e o crescimento sustentável da empresa.</p>
-        </div>
-    </div>
-
-
-</body>
-
-
+        <footer class='about-footer'>
+            <div class='footer-content'>
+                <div class='footer-logo'>
+                    <img src='/logo.png' alt='Logo TutorTime' width='40' />
+                    <span>TutorTime - IFSP</span>
+                </div>
+                <p>© 2024 TutorTime. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </body>
 </html>

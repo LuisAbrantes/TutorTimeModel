@@ -55,6 +55,23 @@ header {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.menu a.active {
+    color: #6a5acd;
+    font-weight: 700;
+    position: relative;
+}
+
+.menu a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: 2px;
+    background-color: #6a5acd;
+    border-radius: 1px;
+}
+
 .menu li:hover {
     background-color: #483d8b;
     border-radius: 5px;
@@ -1043,5 +1060,398 @@ select.input {
     .monitoria-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+}
+
+/* About Page Styles */
+.about-hero {
+    position: relative;
+    height: 40vh;
+    min-height: 300px;
+    background-image: url('/abstract-bg.jpg'),
+        linear-gradient(45deg, #1a1a2e, #16213e);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+    overflow: hidden;
+}
+
+.about-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+}
+
+.about-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+    max-width: 800px;
+}
+
+.about-content h1 {
+    font-size: 3.5rem;
+    margin: 0 0 10px 0;
+    background: linear-gradient(to right, #fff, #6a5acd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.about-subtitle {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.about-intro {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.about-intro h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.about-intro h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #6a5acd;
+    border-radius: 3px;
+}
+
+.about-intro p {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    color: #bbb;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.about-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.about-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #6a5acd;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #aaa;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.team-title {
+    text-align: center;
+    margin: 60px 0 40px;
+    font-size: 1.8rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.team-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #6a5acd;
+    border-radius: 3px;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.team-card {
+    background: linear-gradient(145deg, #18181f, #222230);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(106, 90, 205, 0.1);
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(106, 90, 205, 0.3),
+        0 0 0 2px rgba(106, 90, 205, 0.3);
+}
+
+.team-card-avatar {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.team-card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.team-card:hover .team-card-avatar img {
+    transform: scale(1.05);
+}
+
+.avatar-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3a3a4a;
+    color: #6a5acd;
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.team-card-info {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-card-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.4rem;
+    color: white;
+}
+
+.team-role {
+    color: #6a5acd;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(106, 90, 205, 0.2);
+    padding-bottom: 10px;
+}
+
+.team-bio {
+    color: #aaa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    flex-grow: 1;
+}
+
+.team-social {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.social-link {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(106, 90, 205, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6a5acd;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background-color: #6a5acd;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* GitHub and LinkedIn icon styles */
+.icon-github::before {
+    content: '\f09b'; /* GitHub icon code (you can use Font Awesome or similar) */
+    font-family: 'Font Awesome 6 Brands';
+}
+
+.icon-linkedin::before {
+    content: '\f08c'; /* LinkedIn icon code */
+    font-family: 'Font Awesome 6 Brands';
+}
+
+.about-cta {
+    background: linear-gradient(45deg, #16213e, #0f172a);
+    padding: 80px 20px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M0 0L50 0L0 50Z' fill='%236a5acd' opacity='0.05'/%3E%3Cpath d='M100 0L100 50L50 0Z' fill='%236a5acd' opacity='0.05'/%3E%3Cpath d='M100 100L50 100L100 50Z' fill='%236a5acd' opacity='0.05'/%3E%3Cpath d='M0 100L0 50L50 100Z' fill='%236a5acd' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
+    opacity: 0.5;
+}
+
+.cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin: 0 0 20px;
+    color: #fff;
+}
+
+.cta-content p {
+    font-size: 1.1rem;
+    color: #bbb;
+    margin: 0 0 30px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(to right, #6a5acd, #483d8b);
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(106, 90, 205, 0.4);
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(106, 90, 205, 0.6);
+    background: linear-gradient(to right, #7b6bde, #574a9c);
+}
+
+.about-footer {
+    background-color: #0f0f13;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.footer-logo img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.footer-logo span {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.about-footer p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* Responsive styles for about page */
+@media (max-width: 768px) {
+    .about-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .about-stats {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-content h1 {
+        font-size: 2rem;
+    }
+
+    .about-subtitle {
+        font-size: 1rem;
+    }
+
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-hero {
+        height: 30vh;
+    }
+
+    .cta-content h2 {
+        font-size: 2rem;
     }
 }
