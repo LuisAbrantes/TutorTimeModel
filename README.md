@@ -118,3 +118,4 @@ Link para o Canva com apresentação do projeto **contendo o mockup** das princi
 
 | [<img loading="lazy" src="./imagens_profile/IMG_5405.jpeg" width=115><br><sub>Luis Henrique dos Santos Abrantes</sub>](https://github.com/LuisAbrantes) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/149614643?v=4" width=115><br><sub>Isaque Estolano de Souza</sub>](https://github.com/IsaquePy) |  [<img loading="lazy" src="https://avatars.githubusercontent.com/u/102776070?v=4" width=115><br><sub>Cauã Almeida Moura</sub>](https://github.com/cauaalmeida14052007) |
 | :---: | :---: | :---: |
+
