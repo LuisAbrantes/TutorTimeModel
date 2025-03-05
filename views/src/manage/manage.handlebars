@@ -3,7 +3,7 @@
         <meta charset='UTF-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <title>IFSP - TutorTime | Gerenciamento</title>
-        {{! <link rel='stylesheet' href='/style.css' /> }}
+        <link rel='stylesheet' href='/style.css' />
         <link rel='stylesheet' href='/manage.css' />
         <link
             rel='stylesheet'
@@ -11,7 +11,7 @@
         />
     </head>
     <body>
-        <header class='header-transparent'>
+        <header>
             <div class='logo'>
                 <div class='imageLogo'>
                     <img
@@ -32,11 +32,6 @@
                             Manage</a></li>
                 </ul>
             </nav>
-            <div class='header-actions'>
-                <button id='theme-toggle' class='theme-toggle'><i
-                        class='fas fa-moon'
-                    ></i></button>
-            </div>
         </header>
 
         <div class='dashboard-container'>
@@ -393,13 +388,15 @@
         </div>
 
         <script>
-            // Modal handling function function toggleForm() { const modal =
+            document.addEventListener('DOMContentLoaded', () => { // Modal
+            handling function function toggleForm() { const modal =
             document.getElementById('formModal');
             modal.classList.toggle('show');
-            document.body.classList.toggle('modal-open'); }
-            document.getElementById('toggleFormButton').addEventListener('click',
-            toggleForm); // Close modal when clicking outside of it
-            window.addEventListener('click', function(event) { const modal =
+            document.body.classList.toggle('modal-open'); } const formButton =
+            document.getElementById('toggleFormButton'); if (formButton) {
+            formButton.addEventListener('click', toggleForm); } // Close modal
+            when clicking outside of it window.addEventListener('click',
+            function(event) { const modal =
             document.getElementById('formModal'); if (event.target === modal) {
             toggleForm(); } }); // Input animations const inputs =
             document.querySelectorAll('.input-animated'); inputs.forEach(input
@@ -458,7 +455,7 @@
             monitoriasGrid.classList.add('grid-view');
             monitoriasGrid.classList.remove('list-view'); } else {
             monitoriasGrid.classList.add('list-view');
-            monitoriasGrid.classList.remove('grid-view'); } }); });
+            monitoriasGrid.classList.remove('grid-view'); } }); }); });
         </script>
     </body>
 </html>
