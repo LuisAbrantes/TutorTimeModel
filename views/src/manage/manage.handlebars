@@ -392,7 +392,8 @@
             handling function function toggleForm() { const modal =
             document.getElementById('formModal');
             modal.classList.toggle('show');
-            document.body.classList.toggle('modal-open'); } const formButton =
+            document.body.classList.toggle('modal-open'); } // Re-attach button
+            event const formButton =
             document.getElementById('toggleFormButton'); if (formButton) {
             formButton.addEventListener('click', toggleForm); } // Close modal
             when clicking outside of it window.addEventListener('click',
