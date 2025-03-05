@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Inter;
 }
 
 /* Header Adjustments to match other screens */
@@ -72,6 +73,7 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-weight: 500;
 }
 
 .sidebar-menu li a i {
@@ -102,6 +104,7 @@ header {
     font-size: 1.3rem;
     font-weight: bold;
     color: #fff;
+    font-weight: 600;
 }
 
 .stat-label {
@@ -127,6 +130,7 @@ header {
     color: #fff;
     font-size: 2rem;
     margin: 0;
+    font-weight: 600;
 }
 
 .dashboard-actions {
@@ -393,6 +397,7 @@ header {
 .empty-state h3 {
     color: #fff;
     margin-bottom: 10px;
+    font-weight: 600;
 }
 
 /* Modal Styles */
