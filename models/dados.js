@@ -1,11 +1,18 @@
 //Database
     const { Sequelize, DataTypes } = require('sequelize');
-    const sequelize = new Sequelize('tutortime','root','qwepoi',{
-        host:'localhost',
-        dialect:'mysql',
-        query:{raw:true},
-        logging:false
-    })
+    const sequelize = new Sequelize(
+        'postgresql://tutortimedb_owner:aCklVi10tTsv@ep-frosty-mode-a5j3mrx4.us-east-2.aws.neon.tech/tutortimedb?sslmode=require',
+        {
+            dialect: 'postgres',
+            logging: false,
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false
+                }
+            }
+        }
+    );
     let contador =0
 //Chalk
     const chalk = require('chalk')
