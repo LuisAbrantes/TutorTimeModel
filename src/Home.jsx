@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 function Home() {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -44,6 +44,14 @@ function Home() {
         }
     ];
 
+    const nextSession = useCallback(() => {
+        setIsAnimating(true);
+        setTimeout(() => {
+            setActiveIndex(prev => (prev + 1) % tutoringSessions.length);
+            setIsAnimating(false);
+        }, 500);
+    }, [tutoringSessions.length]);
+
     // Auto-rotate sessions every 8 seconds
     useEffect(() => {
         const interval = setInterval(() => {
@@ -53,15 +61,7 @@ function Home() {
         }, 8000);
 
         return () => clearInterval(interval);
-    }, [activeIndex, isAnimating]);
-
-    const nextSession = () => {
-        setIsAnimating(true);
-        setTimeout(() => {
-            setActiveIndex(prev => (prev + 1) % tutoringSessions.length);
-            setIsAnimating(false);
-        }, 500);
-    };
+    }, [activeIndex, isAnimating, nextSession]);
 
     const prevSession = () => {
         setIsAnimating(true);
