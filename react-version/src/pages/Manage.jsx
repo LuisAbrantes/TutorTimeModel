@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from '../components/Header';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 const DEFAULT_IMAGE = '/logo.png';
@@ -195,7 +194,6 @@ const Manage = ({ senha, navigate }) => {
     if (loading) {
         return (
             <div className="min-h-screen bg-gray-900">
-                <Header navigate={navigate} currentPage="manage" />
                 <div className="flex justify-center items-center h-screen">
                     <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
                 </div>
@@ -206,7 +204,6 @@ const Manage = ({ senha, navigate }) => {
     if (error) {
         return (
             <div className="min-h-screen bg-gray-900">
-                <Header navigate={navigate} currentPage="manage" />
                 <div className="flex justify-center items-center h-screen">
                     <div className="bg-red-500/20 text-red-500 p-4 rounded-lg">
                         {error}
@@ -218,8 +215,6 @@ const Manage = ({ senha, navigate }) => {
 
     return (
         <div className="min-h-screen bg-gray-900">
-            <Header navigate={navigate} currentPage="manage" />
-
             <div className="container mx-auto px-4 py-8 pt-20">
                 <h1 className="text-3xl font-bold text-center mb-8 text-white">
                     Painel de Administração
