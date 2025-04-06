@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { ChevronLeft, ChevronRight, BookOpen, Book, Info } from 'lucide-react';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 const DEFAULT_IMAGE = '/logo.png';
@@ -184,10 +185,14 @@ const Home = ({ navigate }) => {
                                             : ''
                                     }`}
                                 >
-                                    <p className="text-gray-200 text-sm md:text-base">
-                                        Clique para ver detalhes sobre as
-                                        monitorias disponíveis para esta matéria
-                                    </p>
+                                    <div className="flex items-center gap-2">
+                                        <Info className="text-primary h-5 w-5 flex-shrink-0" />
+                                        <p className="text-gray-200 text-sm md:text-base">
+                                            Clique para ver detalhes sobre as
+                                            monitorias disponíveis para esta
+                                            matéria
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,23 +200,25 @@ const Home = ({ navigate }) => {
                 )}
             </div>
 
-            {/* Improved Navigation Arrows */}
+            {/* Improved Navigation Arrows with Lucide Icons */}
             <div className="absolute top-[50%] transform -translate-y-1/2 w-full flex justify-between px-4 z-30">
                 <button
                     onClick={handlePrev}
-                    className="bg-dark/50 backdrop-blur-sm border border-primary/20 w-12 h-12 rounded-full flex items-center justify-center text-xl text-white transition-all hover:bg-primary hover:text-white"
+                    className="bg-dark/50 backdrop-blur-sm border border-primary/20 w-12 h-12 rounded-full flex items-center justify-center text-white transition-all hover:bg-primary hover:text-white"
+                    aria-label="Matéria anterior"
                 >
-                    &lt;
+                    <ChevronLeft className="h-6 w-6" />
                 </button>
                 <button
                     onClick={handleNext}
-                    className="bg-dark/50 backdrop-blur-sm border border-primary/20 w-12 h-12 rounded-full flex items-center justify-center text-xl text-white transition-all hover:bg-primary hover:text-white"
+                    className="bg-dark/50 backdrop-blur-sm border border-primary/20 w-12 h-12 rounded-full flex items-center justify-center text-white transition-all hover:bg-primary hover:text-white"
+                    aria-label="Próxima matéria"
                 >
-                    &gt;
+                    <ChevronRight className="h-6 w-6" />
                 </button>
             </div>
 
-            {/* Enhanced Thumbnails */}
+            {/* Enhanced Thumbnails with Lucide Icons */}
             <div className="absolute bottom-[30px] z-20 flex gap-[15px] w-full max-h-[180px] px-[50px] box-border overflow-auto justify-center">
                 {subjects.map((subject, index) => (
                     <div
@@ -233,8 +240,11 @@ const Home = ({ navigate }) => {
                             }}
                         ></div>
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3 rounded-b-lg">
-                            <div className="text-white text-sm font-medium line-clamp-2">
-                                {subject.nome}
+                            <div className="flex items-center gap-2">
+                                <Book className="w-4 h-4 text-primary flex-shrink-0" />
+                                <div className="text-white text-sm font-medium line-clamp-2">
+                                    {subject.nome}
+                                </div>
                             </div>
                         </div>
                     </div>
