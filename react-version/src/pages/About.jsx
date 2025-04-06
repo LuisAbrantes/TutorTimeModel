@@ -177,7 +177,7 @@ const About = ({ navigate }) => {
                             <div className="md:w-1/2 md:border-l md:border-primary/20 md:pl-8">
                                 <div className="bg-dark/50 rounded-xl p-4 backdrop-blur-sm">
                                     <h3 className="text-lg font-medium mb-3 text-primary">
-                                        Horário de Atendimento
+                                        Horário de Disponibilidade
                                     </h3>
                                     <ul className="space-y-2">
                                         <li className="flex justify-between">

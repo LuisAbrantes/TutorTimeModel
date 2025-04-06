@@ -36,11 +36,21 @@ function App() {
                 return <About navigate={navigate} />;
             case 'manage':
                 if (currentParams.senha) {
-                    return <Manage senha={currentParams.senha} />;
+                    return (
+                        <Manage
+                            senha={currentParams.senha}
+                            navigate={navigate}
+                        />
+                    );
                 }
                 return <Login navigate={navigate} />;
             case 'subject':
-                return <SubjectDetail materia={currentParams.materia} />;
+                return (
+                    <SubjectDetail
+                        materia={currentParams.materia}
+                        navigate={navigate}
+                    />
+                );
             default:
                 return <NotFound navigate={navigate} />;
         }

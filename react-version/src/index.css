@@ -4,47 +4,6 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    margin: 0;
     background-color: #010101;
     color: #eee;
-}
-
-/* Ajuste de imagens para garantir tamanhos adequados */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-.header-logo {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-}
-
-/* Ajuste para imagens de fundo no slider */
-.list img {
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    object-position: center;
-    max-height: 100vh;
-}
-
-/* Ajuste para thumbnails */
-.thumbnail-img {
-    max-height: 150px;
-    object-fit: cover;
-}
-
-/* Ajuste para cards de monitorias */
-.card-img {
-    max-height: 180px;
-    object-fit: cover;
-}
-
-/* Ajuste para imagens de matérias na lista de admin */
-.subject-thumb {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
 }
