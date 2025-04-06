@@ -44,7 +44,7 @@ app.set('view engine', 'handlebars'); //Definindo engine como HANDLEBARS
 //CORS para permitir requisições do frontend React
 app.use(
     cors({
-        origin: 'http://localhost:5174', // URL do seu app React
+        origin: 'http://localhost:5173', // URL do seu app React
         credentials: true
     })
 );
