@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import Header from '../components/Header';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 const DEFAULT_IMAGE = '/logo.png';
@@ -109,7 +108,7 @@ const Home = ({ navigate }) => {
 
     return (
         <div className="relative h-screen bg-gradient-to-b from-dark to-darkAlt">
-            <Header navigate={navigate} currentPage="home" />
+            {/* Header removido daqui, agora está no App.jsx */}
 
             {/* Slider Items */}
             <div className="relative w-full h-full overflow-hidden">

@@ -33,7 +33,7 @@ function App() {
             case 'home':
                 return <Home navigate={navigate} />;
             case 'about':
-                return <About />;
+                return <About navigate={navigate} />;
             case 'manage':
                 if (currentParams.senha) {
                     return <Manage senha={currentParams.senha} />;
@@ -49,7 +49,6 @@ function App() {
     return (
         <div className="min-h-screen bg-gray-900 text-white flex flex-col">
             <Header navigate={navigate} currentPage={currentPage} />
-
             <main className="flex-grow">{renderContent()}</main>
         </div>
     );

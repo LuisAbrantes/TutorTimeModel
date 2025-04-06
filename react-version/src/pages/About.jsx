@@ -1,11 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
 
 const About = ({ navigate }) => {
     return (
         <div className="min-h-screen bg-gradient-to-b from-dark to-darkAlt text-white">
-            <Header navigate={navigate} currentPage="about" />
-
             <div className="container mx-auto px-4 py-12">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 relative">
