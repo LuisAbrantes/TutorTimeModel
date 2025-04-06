@@ -108,14 +108,19 @@ const Home = ({ navigate }) => {
     };
 
     return (
-        <div className="relative h-screen">
+        <div className="relative h-screen bg-gradient-to-b from-dark to-darkAlt">
             <Header navigate={navigate} currentPage="home" />
 
             {/* Slider Items */}
             <div className="relative w-full h-full overflow-hidden">
                 {isLoading ? (
                     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                        <p className="text-2xl text-white">Carregando...</p>
+                        <div className="flex flex-col items-center">
+                            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary mb-4"></div>
+                            <p className="text-2xl text-white font-medium">
+                                Carregando...
+                            </p>
+                        </div>
                     </div>
                 ) : (
                     subjects.map((subject, index) => (
@@ -128,7 +133,7 @@ const Home = ({ navigate }) => {
                                     : 'opacity-0'
                             }`}
                         >
-                            <div className="w-full h-[60vh] overflow-hidden relative">
+                            <div className="w-full h-[70vh] overflow-hidden relative">
                                 <div
                                     className="w-full h-full bg-cover bg-center"
                                     style={{
@@ -138,12 +143,13 @@ const Home = ({ navigate }) => {
                                     }}
                                 ></div>
 
-                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                                {/* Enhanced gradient overlay for better text visibility */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                             </div>
 
-                            <div className="absolute left-[10%] top-[20%] w-[500px] max-w-[80%] z-20">
+                            <div className="absolute left-[10%] top-[25%] w-[600px] max-w-[80%] z-20">
                                 <p
-                                    className={`uppercase tracking-[10px] text-white ${
+                                    className={`uppercase tracking-[10px] text-primary font-medium ${
                                         index === activeItem
                                             ? 'animate-fadeIn'
                                             : ''
@@ -157,63 +163,80 @@ const Home = ({ navigate }) => {
                                         e.preventDefault();
                                         navigateToSubject(subject);
                                     }}
-                                    className="text-white no-underline hover:text-primary transition-colors"
+                                    className="group no-underline transition-colors"
                                 >
                                     <h2
-                                        className={`text-5xl md:text-7xl lg:text-8xl m-0 font-bold ${
+                                        className={`text-5xl md:text-7xl lg:text-8xl m-0 font-bold text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] 
+                                        ${
                                             index === activeItem
                                                 ? 'animate-fadeIn delay-100'
                                                 : ''
-                                        }`}
+                                        }
+                                        bg-gradient-to-r from-white to-white bg-clip-text group-hover:text-transparent group-hover:from-primary group-hover:to-secondary transition-all duration-300`}
                                     >
                                         {subject.nome}
                                     </h2>
                                 </a>
+                                <div
+                                    className={`mt-4 bg-dark/60 backdrop-blur-sm rounded-lg p-3 max-w-md border-l-4 border-primary 
+                                    ${
+                                        index === activeItem
+                                            ? 'animate-fadeIn delay-200'
+                                            : ''
+                                    }`}
+                                >
+                                    <p className="text-gray-200 text-sm md:text-base">
+                                        Clique para ver detalhes sobre as
+                                        monitorias disponíveis para esta matéria
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     ))
                 )}
             </div>
 
-            {/* Navigation Arrows */}
-            <div className="absolute top-[30%] right-[50px] z-30">
+            {/* Improved Navigation Arrows */}
+            <div className="absolute top-[50%] transform -translate-y-1/2 w-full flex justify-between px-4 z-30">
                 <button
                     onClick={handlePrev}
-                    className="bg-white bg-opacity-30 border-none w-10 h-10 rounded text-xl text-white transition-all hover:bg-white hover:text-black"
+                    className="bg-dark/50 backdrop-blur-sm border border-primary/20 w-12 h-12 rounded-full flex items-center justify-center text-xl text-white transition-all hover:bg-primary hover:text-white"
                 >
                     &lt;
                 </button>
                 <button
                     onClick={handleNext}
-                    className="bg-white bg-opacity-30 border-none w-10 h-10 rounded text-xl text-white transition-all hover:bg-white hover:text-black mt-2"
+                    className="bg-dark/50 backdrop-blur-sm border border-primary/20 w-12 h-12 rounded-full flex items-center justify-center text-xl text-white transition-all hover:bg-primary hover:text-white"
                 >
                     &gt;
                 </button>
             </div>
 
-            {/* Thumbnails */}
-            <div className="absolute bottom-[50px] z-20 flex gap-[10px] w-full h-auto max-h-[180px] px-[50px] box-border overflow-auto justify-center">
+            {/* Enhanced Thumbnails */}
+            <div className="absolute bottom-[30px] z-20 flex gap-[15px] w-full max-h-[180px] px-[50px] box-border overflow-auto justify-center">
                 {subjects.map((subject, index) => (
                     <div
                         key={subject.id}
                         onClick={() => handleThumbnailClick(index)}
-                        className={`w-[120px] h-[150px] transition-all duration-500 flex-shrink-0 cursor-pointer relative
+                        className={`w-[130px] h-[160px] transition-all duration-500 flex-shrink-0 cursor-pointer relative 
                         ${
                             index === activeItem
-                                ? 'brightness-150'
-                                : 'brightness-50'
+                                ? 'ring-4 ring-primary scale-110'
+                                : 'brightness-50 hover:brightness-75'
                         }`}
                     >
                         <div
-                            className="w-full h-full rounded-lg bg-cover bg-center"
+                            className="w-full h-full rounded-lg bg-cover bg-center shadow-lg"
                             style={{
                                 backgroundImage: `url(${subject.imagemUrl})`,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center'
                             }}
                         ></div>
-                        <div className="absolute bottom-2 left-2 right-2 text-white text-sm font-medium">
-                            {subject.nome}
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3 rounded-b-lg">
+                            <div className="text-white text-sm font-medium line-clamp-2">
+                                {subject.nome}
+                            </div>
                         </div>
                     </div>
                 ))}
