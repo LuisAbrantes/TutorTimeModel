@@ -4,7 +4,7 @@ const Header = ({ navigate, currentPage }) => {
     // Função para determinar a classe ativa
     const getLinkClass = page => {
         const baseClass =
-            'no-underline text-white px-4 py-2.5 font-medium transition-colors hover:bg-secondary hover:rounded hover:scale-105 transform';
+            'no-underline text-white px-4 py-2.5 font-medium transition-colors hover:bg-secondary hover:text-white hover:rounded hover:scale-105 transform';
 
         if (
             (page === 'home' &&
@@ -17,7 +17,7 @@ const Header = ({ navigate, currentPage }) => {
     };
 
     return (
-        <header className="flex items-center justify-between flex-wrap w-full max-w-7xl mx-auto px-5 py-3 box-border relative z-50">
+        <header className="flex items-center justify-between flex-wrap w-full max-w-7xl mx-auto px-5 py-3 box-border relative z-50 bg-darkAlt shadow-md">
             <div className="flex items-center">
                 <div className="mr-2.5">
                     <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">

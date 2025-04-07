@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import Header from './components/Header';
-import Home from './pages/Home';
-import About from './pages/About';
-import Login from './pages/Login';
-import Manage from './pages/Manage';
-import SubjectDetail from './pages/SubjectDetail';
-import Calendar from './pages/Calendar';
-import NotFound from './pages/NotFound';
 import './index.css';
+
+// Usando React.lazy para carregamento sob demanda dos componentes
+const Home = lazy(() => import('./pages/Home'));
+const About = lazy(() => import('./pages/About'));
+const Login = lazy(() => import('./pages/Login'));
+const Manage = lazy(() => import('./pages/Manage'));
+const SubjectDetail = lazy(() => import('./pages/SubjectDetail'));
+const Calendar = lazy(() => import('./pages/Calendar'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// Componente de loading para Suspense
+const Loading = () => (
+    <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+    </div>
+);
 
 function App() {
     // Estado para gerenciar a "página" atual
@@ -62,7 +71,9 @@ function App() {
     return (
         <div className="min-h-screen bg-gray-900 text-white flex flex-col">
             <Header navigate={navigate} currentPage={currentPage} />
-            <main className="flex-grow">{renderContent()}</main>
+            <main className="flex-grow">
+                <Suspense fallback={<Loading />}>{renderContent()}</Suspense>
+            </main>
         </div>
     );
 }
