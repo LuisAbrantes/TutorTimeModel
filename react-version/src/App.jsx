@@ -5,6 +5,7 @@ import About from './pages/About';
 import Login from './pages/Login';
 import Manage from './pages/Manage';
 import SubjectDetail from './pages/SubjectDetail';
+import Calendar from './pages/Calendar';
 import NotFound from './pages/NotFound';
 import './index.css';
 
@@ -51,6 +52,8 @@ function App() {
                         navigate={navigate}
                     />
                 );
+            case 'calendar':
+                return <Calendar navigate={navigate} />;
             default:
                 return <NotFound navigate={navigate} />;
         }

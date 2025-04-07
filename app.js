@@ -17,6 +17,17 @@ const Materia = tutortime.Materia;
 const Existente = tutortime.Existente;
 let c = 1;
 
+// Array de dias da semana para normalização
+const DIAS_SEMANA = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+
+// Função para normalizar o valor de 'dia'
+function normalizarDia(dia) {
+    const diaNormalizado = DIAS_SEMANA.find(
+        d => d.toLowerCase() === dia.toLowerCase()
+    );
+    return diaNormalizado || dia; // Retorna o dia normalizado ou o valor original se não encontrar correspondência
+}
+
 //-Config⚙️
 //Template Engine
 app.engine(
@@ -136,10 +147,13 @@ app.post('/api/tutorials', async function (req, res) {
             });
         }
 
+        // Normalizar o valor de 'dia'
+        const diaNormalizado = normalizarDia(req.body.diaREQ);
+
         // Create the tutorial
         const newTutorial = await Monitorias.create({
             horario: req.body.horarioREQ,
-            dia: req.body.diaREQ,
+            dia: diaNormalizado,
             local: req.body.localREQ,
             imagemUrl: id_materia.imagemUrl,
             descricao: req.body.descricaoREQ,

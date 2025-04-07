@@ -12,7 +12,8 @@ import {
     MapPin,
     Users,
     User,
-    GraduationCap
+    GraduationCap,
+    Calendar
 } from 'lucide-react';
 
 const API_BASE_URL = 'http://localhost:3000/api';
@@ -262,6 +263,13 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                     </h1>
 
                     <div className="flex space-x-2">
+                        <button
+                            onClick={() => handleNavigation('calendar')}
+                            className="inline-flex items-center px-4 py-2 bg-primary/20 text-primary hover:bg-primary hover:text-white rounded-lg transition-all duration-300 mr-2"
+                        >
+                            <Calendar className="h-5 w-5 mr-2" />
+                            Ver calendário
+                        </button>
                         <button
                             onClick={() => handleNavigation('home')}
                             className="inline-flex items-center px-4 py-2 bg-primary/20 text-primary hover:bg-primary hover:text-white rounded-lg transition-all duration-300"

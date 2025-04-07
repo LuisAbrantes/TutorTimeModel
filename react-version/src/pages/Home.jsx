@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { ChevronLeft, ChevronRight, BookOpen, Book, Info } from 'lucide-react';
+import {
+    ChevronLeft,
+    ChevronRight,
+    BookOpen,
+    Book,
+    Info,
+    Calendar
+} from 'lucide-react';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 const DEFAULT_IMAGE = '/logo.png';
@@ -219,7 +226,7 @@ const Home = ({ navigate }) => {
             </div>
 
             {/* Enhanced Thumbnails with Lucide Icons */}
-            <div className="absolute bottom-[30px] z-20 flex gap-[15px] w-full max-h-[180px] px-[50px] box-border overflow-auto justify-center">
+            <div className="absolute bottom-[80px] z-20 flex gap-[15px] w-full max-h-[180px] px-[50px] box-border overflow-auto justify-center">
                 {subjects.map((subject, index) => (
                     <div
                         key={subject.id}
@@ -249,6 +256,17 @@ const Home = ({ navigate }) => {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* Botão para o calendário de monitorias */}
+            <div className="absolute bottom-[20px] left-0 right-0 flex justify-center z-20">
+                <button
+                    onClick={() => navigate('calendar')}
+                    className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/30"
+                >
+                    <Calendar className="h-5 w-5" />
+                    <span>Ver calendário de monitorias</span>
+                </button>
             </div>
         </div>
     );
