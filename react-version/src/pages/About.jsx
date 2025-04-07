@@ -2,15 +2,15 @@ import React from 'react';
 
 const About = ({ navigate }) => {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-dark to-darkAlt text-white">
+        <div className="min-h-screen bg-gray-900 text-white">
             <div className="container mx-auto px-4 py-12">
                 <div className="max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 relative">
+                    <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-8">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                             Sobre o TutorTime
                         </span>
-                        <div className="absolute h-1 w-24 bg-primary left-1/2 transform -translate-x-1/2 bottom-0 rounded-full"></div>
                     </h1>
+                    <div className="h-1 w-24 bg-primary mx-auto rounded-full mb-8"></div>
 
                     {/* Visão geral com design de cartões */}
                     <div className="grid md:grid-cols-2 gap-6 mb-12">
