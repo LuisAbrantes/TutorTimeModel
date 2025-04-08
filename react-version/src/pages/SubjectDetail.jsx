@@ -27,42 +27,49 @@ const API_BASE_URL = 'http://localhost:3000/api';
 const DEFAULT_IMAGE = '/logo.png';
 
 // Função para gerar URL de compartilhamento
-const generateShareURL = (tutorial) => {
+const generateShareURL = tutorial => {
     const baseURL = window.location.origin;
-    return `${baseURL}/subject/${encodeURIComponent(tutorial.Materia.nome)}?tutorialId=${tutorial.id}`;
+    return `${baseURL}/subject/${encodeURIComponent(
+        tutorial.Materia.nome
+    )}?tutorialId=${tutorial.id}`;
 };
 
 // Componente para gerar QR code
 const QRCodeModal = ({ url, onClose }) => {
-    const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
-    
+    const qrCodeURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
+        url
+    )}`;
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 animate-fadeIn">
             <div className="bg-gradient-to-br from-[#1c1c24] to-[#2a2a3a] rounded-xl p-6 max-w-md w-full">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold text-white">QR Code para Compartilhamento</h3>
-                    <button 
+                    <h3 className="text-xl font-bold text-white">
+                        QR Code para Compartilhamento
+                    </h3>
+                    <button
                         onClick={onClose}
                         className="bg-black/50 hover:bg-black/70 text-white rounded-full p-1"
                     >
                         <X className="h-5 w-5" />
                     </button>
                 </div>
-                
+
                 <div className="flex justify-center mb-4">
-                    <img 
-                        src={qrCodeURL} 
-                        alt="QR Code para compartilhamento" 
+                    <img
+                        src={qrCodeURL}
+                        alt="QR Code para compartilhamento"
                         className="w-48 h-48 border-4 border-white rounded-lg"
                     />
                 </div>
-                
+
                 <p className="text-gray-300 text-sm mb-4 text-center">
-                    Escaneie este código QR para acessar diretamente esta monitoria
+                    Escaneie este código QR para acessar diretamente esta
+                    monitoria
                 </p>
-                
+
                 <div className="flex justify-center">
-                    <button 
+                    <button
                         onClick={() => {
                             navigator.clipboard.writeText(url);
                             alert('Link copiado!');
@@ -83,14 +90,26 @@ const ShareButton = React.memo(({ tutorial }) => {
     const [showShareOptions, setShowShareOptions] = useState(false);
     const [showQRCode, setShowQRCode] = useState(false);
     const shareURL = generateShareURL(tutorial);
-    
-    const handleShare = (platform) => {
+
+    const handleShare = platform => {
         switch (platform) {
             case 'whatsapp':
-                window.open(`https://wa.me/?text=${encodeURIComponent(`Confira esta monitoria de ${tutorial.Materia.nome}: ${shareURL}`)}`, '_blank');
+                window.open(
+                    `https://wa.me/?text=${encodeURIComponent(
+                        `Confira esta monitoria de ${tutorial.Materia.nome}: ${shareURL}`
+                    )}`,
+                    '_blank'
+                );
                 break;
             case 'email':
-                window.open(`mailto:?subject=${encodeURIComponent(`Monitoria de ${tutorial.Materia.nome}`)}&body=${encodeURIComponent(`Olá! Confira esta monitoria:\n\nMatéria: ${tutorial.Materia.nome}\nMonitor: ${tutorial.Monitor.nome}\nHorário: ${tutorial.horario} - ${tutorial.dia}\nLocal: ${tutorial.local}\n\nLink: ${shareURL}`)}`, '_blank');
+                window.open(
+                    `mailto:?subject=${encodeURIComponent(
+                        `Monitoria de ${tutorial.Materia.nome}`
+                    )}&body=${encodeURIComponent(
+                        `Olá! Confira esta monitoria:\n\nMatéria: ${tutorial.Materia.nome}\nMonitor: ${tutorial.Monitor.nome}\nHorário: ${tutorial.horario} - ${tutorial.dia}\nLocal: ${tutorial.local}\n\nLink: ${shareURL}`
+                    )}`,
+                    '_blank'
+                );
                 break;
             case 'copy':
                 navigator.clipboard.writeText(shareURL).then(() => {
@@ -105,10 +124,10 @@ const ShareButton = React.memo(({ tutorial }) => {
                 console.error('Plataforma de compartilhamento não suportada');
         }
     };
-    
+
     return (
         <div className="relative">
-            <button 
+            <button
                 onClick={() => setShowShareOptions(!showShareOptions)}
                 className="flex items-center px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
                 aria-label="Compartilhar monitoria"
@@ -116,32 +135,32 @@ const ShareButton = React.memo(({ tutorial }) => {
                 <Share2 className="h-5 w-5 mr-2" />
                 Compartilhar
             </button>
-            
+
             {showShareOptions && (
                 <div className="absolute right-0 bottom-12 bg-gradient-to-br from-[#1c1c24] to-[#2a2a3a] rounded-lg p-3 shadow-xl border border-gray-700/50 z-10 animate-fadeIn">
                     <div className="flex flex-col space-y-2">
-                        <button 
+                        <button
                             onClick={() => handleShare('whatsapp')}
                             className="flex items-center px-3 py-2 hover:bg-green-500/20 text-white rounded-lg transition-colors text-sm"
                         >
                             <ExternalLink className="h-4 w-4 mr-2 text-green-400" />
                             WhatsApp
                         </button>
-                        <button 
+                        <button
                             onClick={() => handleShare('email')}
                             className="flex items-center px-3 py-2 hover:bg-blue-500/20 text-white rounded-lg transition-colors text-sm"
                         >
                             <Mail className="h-4 w-4 mr-2 text-blue-400" />
                             Email
                         </button>
-                        <button 
+                        <button
                             onClick={() => handleShare('copy')}
                             className="flex items-center px-3 py-2 hover:bg-yellow-500/20 text-white rounded-lg transition-colors text-sm"
                         >
                             <Copy className="h-4 w-4 mr-2 text-yellow-400" />
                             Copiar link
                         </button>
-                        <button 
+                        <button
                             onClick={() => handleShare('qrcode')}
                             className="flex items-center px-3 py-2 hover:bg-purple-500/20 text-white rounded-lg transition-colors text-sm"
                         >
@@ -151,9 +170,9 @@ const ShareButton = React.memo(({ tutorial }) => {
                     </div>
                 </div>
             )}
-            
+
             {showQRCode && (
-                <QRCodeModal 
+                <QRCodeModal
                     url={shareURL}
                     onClose={() => setShowQRCode(false)}
                 />
@@ -218,13 +237,15 @@ const SubjectDetail = ({ materia = '', navigate }) => {
 
             setTutorials(filteredTutorials);
             setIsLoading(false);
-            
+
             // Verificar se há um ID de tutorial na URL para abrir diretamente
             const urlParams = new URLSearchParams(window.location.search);
             const tutorialId = urlParams.get('tutorialId');
-            
+
             if (tutorialId) {
-                const tutorialToOpen = filteredTutorials.find(t => t.id.toString() === tutorialId);
+                const tutorialToOpen = filteredTutorials.find(
+                    t => t.id.toString() === tutorialId
+                );
                 if (tutorialToOpen) {
                     setSelectedTutorial(tutorialToOpen);
                     setShowDetailModal(true);
@@ -620,7 +641,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {filteredTutorials.map(
                                         (tutorial, index) => (
-                                            <TutorialCard 
+                                            <TutorialCard
                                                 key={`${tutorial.id}-${index}`}
                                                 tutorial={tutorial}
                                                 onClick={handleTutorialClick}
@@ -663,8 +684,10 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                             >
                                                 <div className="flex flex-col md:flex-row">
                                                     <div className="relative w-full md:w-48 h-40">
-                                                        <LazyImage 
-                                                            src={tutorial.imagemUrl}
+                                                        <LazyImage
+                                                            src={
+                                                                tutorial.imagemUrl
+                                                            }
                                                             alt={`Imagem da monitoria de ${tutorial.Materia.nome}`}
                                                             className="w-full h-full border-b-[3px] md:border-b-0 md:border-r-[3px] border-primary"
                                                         />
@@ -792,7 +815,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                         onClick={e => e.stopPropagation()}
                     >
                         <div className="relative h-60">
-                            <LazyImage 
+                            <LazyImage
                                 src={selectedTutorial.imagemUrl}
                                 alt={`Imagem da monitoria de ${selectedTutorial.Materia.nome}`}
                                 className="h-60 border-b-[3px] border-primary"
@@ -812,7 +835,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                 <h2 className="text-2xl font-bold text-white">
                                     Monitoria de {selectedTutorial.Materia.nome}
                                 </h2>
-                                
+
                                 <ShareButton tutorial={selectedTutorial} />
                             </div>
 

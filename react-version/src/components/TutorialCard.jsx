@@ -2,11 +2,11 @@ import React, { memo } from 'react';
 import LazyImage from './LazyImage';
 
 const TutorialCard = ({ tutorial, onClick, onInscricao }) => {
-    const handleInscricaoClick = (e) => {
+    const handleInscricaoClick = e => {
         e.stopPropagation();
         onInscricao(tutorial.id);
     };
-    
+
     return (
         <div
             className="bg-gradient-to-br from-[#18181f] to-[#222230] rounded-lg overflow-hidden shadow-lg border border-primary/10 transition-all hover:shadow-xl hover:shadow-primary/20 hover:border-primary/30 animate-fadeIn cursor-pointer"
@@ -14,7 +14,7 @@ const TutorialCard = ({ tutorial, onClick, onInscricao }) => {
             tabIndex="0"
             role="button"
             aria-label={`Ver detalhes da monitoria de ${tutorial.Materia.nome}`}
-            onKeyDown={(e) => {
+            onKeyDown={e => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
                     onClick(tutorial);
@@ -22,7 +22,7 @@ const TutorialCard = ({ tutorial, onClick, onInscricao }) => {
             }}
         >
             <div className="relative h-40">
-                <LazyImage 
+                <LazyImage
                     src={tutorial.imagemUrl}
                     alt={`Imagem da monitoria de ${tutorial.Materia.nome}`}
                     className="h-40 border-b-[3px] border-primary"
@@ -60,9 +60,7 @@ const TutorialCard = ({ tutorial, onClick, onInscricao }) => {
                         {tutorial.horario} - {tutorial.dia}
                     </p>
                     <p>
-                        <span className="text-primary font-medium">
-                            Local:
-                        </span>{' '}
+                        <span className="text-primary font-medium">Local:</span>{' '}
                         {tutorial.local}
                     </p>
                     <p>

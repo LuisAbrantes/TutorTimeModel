@@ -14,7 +14,7 @@ const Manage = ({ senha, navigate }) => {
     const [activeTab, setActiveTab] = useState('card');
     const [deleteConfirm, setDeleteConfirm] = useState(null);
     const [filterBy, setFilterBy] = useState('all');
-    
+
     const [formData, setFormData] = useState({
         monitorREQ: '',
         professorREQ: '',
@@ -178,10 +178,10 @@ const Manage = ({ senha, navigate }) => {
 
             // Update local state by removing the deleted tutorial
             setTutorials(tutorials.filter(tutorial => tutorial.id !== id));
-            
+
             // Limpar o estado de confirmação
             setDeleteConfirm(null);
-            
+
             setLoading(false);
         } catch (err) {
             console.error('Error deleting tutorial:', err);
@@ -201,10 +201,10 @@ const Manage = ({ senha, navigate }) => {
                 tutorials.filter(tutorial => tutorial.materiaId !== id)
             );
             setSubjects(subjects.filter(subject => subject.id !== id));
-            
+
             // Limpar o estado de confirmação
             setDeleteConfirm(null);
-            
+
             setLoading(false);
         } catch (err) {
             console.error('Error deleting subject:', err);
@@ -216,19 +216,30 @@ const Manage = ({ senha, navigate }) => {
     // Filtrar e ordenar tutoriais com base nos critérios de pesquisa
     const filteredTutorials = useMemo(() => {
         if (!searchTerm && filterBy === 'all') return tutorials;
-        
+
         return tutorials.filter(tutorial => {
             // Filtro por texto de pesquisa
-            const searchMatch = !searchTerm || 
-                tutorial.Materia.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                tutorial.Monitor.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                tutorial.Professor.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                tutorial.local.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            const searchMatch =
+                !searchTerm ||
+                tutorial.Materia.nome
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                tutorial.Monitor.nome
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                tutorial.Professor.nome
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
+                tutorial.local
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) ||
                 tutorial.dia.toLowerCase().includes(searchTerm.toLowerCase());
-                
+
             // Filtro por matéria
-            const filterMatch = filterBy === 'all' || tutorial.materiaId.toString() === filterBy;
-            
+            const filterMatch =
+                filterBy === 'all' ||
+                tutorial.materiaId.toString() === filterBy;
+
             return searchMatch && filterMatch;
         });
     }, [tutorials, searchTerm, filterBy]);
@@ -236,8 +247,8 @@ const Manage = ({ senha, navigate }) => {
     // Filtrar matérias com base no texto de pesquisa
     const filteredSubjects = useMemo(() => {
         if (!searchTerm) return subjects;
-        
-        return subjects.filter(subject => 
+
+        return subjects.filter(subject =>
             subject.nome.toLowerCase().includes(searchTerm.toLowerCase())
         );
     }, [subjects, searchTerm]);
@@ -279,7 +290,7 @@ const Manage = ({ senha, navigate }) => {
                                 type="text"
                                 placeholder="Pesquisar monitorias ou matérias..."
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={e => setSearchTerm(e.target.value)}
                                 className="w-full h-12 dark:bg-white/5 bg-white/80 border dark:border-white/10 border-gray-300 rounded-xl px-4 pl-10 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary"
                             />
                             <Search className="h-5 w-5 absolute top-3.5 left-3 dark:text-gray-400 text-gray-500" />
@@ -293,21 +304,24 @@ const Manage = ({ senha, navigate }) => {
                                 </button>
                             )}
                         </div>
-                        
+
                         <div className="flex gap-2">
                             <select
                                 value={filterBy}
-                                onChange={(e) => setFilterBy(e.target.value)}
+                                onChange={e => setFilterBy(e.target.value)}
                                 className="dark:bg-white/5 bg-white/80 border dark:border-white/10 border-gray-300 rounded-xl px-4 py-3 dark:text-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary min-w-[180px]"
                             >
                                 <option value="all">Todas as matérias</option>
                                 {subjects.map(subject => (
-                                    <option key={subject.id} value={subject.id.toString()}>
+                                    <option
+                                        key={subject.id}
+                                        value={subject.id.toString()}
+                                    >
                                         {subject.nome}
                                     </option>
                                 ))}
                             </select>
-                            
+
                             <div className="flex rounded-lg overflow-hidden border dark:border-gray-700 border-gray-300">
                                 <button
                                     onClick={() => setActiveTab('card')}
@@ -525,7 +539,8 @@ const Manage = ({ senha, navigate }) => {
                             <div className="space-y-4 max-h-[300px] overflow-y-auto">
                                 {filteredSubjects.length === 0 ? (
                                     <div className="text-center py-6 dark:text-gray-400 text-gray-600">
-                                        Nenhuma matéria encontrada com "{searchTerm}"
+                                        Nenhuma matéria encontrada com "
+                                        {searchTerm}"
                                     </div>
                                 ) : (
                                     filteredSubjects.map(subject => (
@@ -542,17 +557,24 @@ const Manage = ({ senha, navigate }) => {
                                                             DEFAULT_IMAGE
                                                         })`,
                                                         backgroundSize: 'cover',
-                                                        backgroundPosition: 'center'
+                                                        backgroundPosition:
+                                                            'center'
                                                     }}
                                                 ></div>
                                                 <span className="dark:text-white text-gray-900">
                                                     {subject.nome}
                                                 </span>
                                             </div>
-                                            {deleteConfirm && deleteConfirm.type === 'subject' && deleteConfirm.id === subject.id ? (
+                                            {deleteConfirm &&
+                                            deleteConfirm.type === 'subject' &&
+                                            deleteConfirm.id === subject.id ? (
                                                 <div className="flex space-x-2">
                                                     <button
-                                                        onClick={() => handleDeleteSubject(subject.id)}
+                                                        onClick={() =>
+                                                            handleDeleteSubject(
+                                                                subject.id
+                                                            )
+                                                        }
                                                         className="px-3 py-1 bg-green-500/20 text-green-500 rounded hover:bg-green-500 hover:text-white transition-colors flex items-center"
                                                     >
                                                         <Check className="w-4 h-4 mr-1" />
@@ -567,7 +589,12 @@ const Manage = ({ senha, navigate }) => {
                                                 </div>
                                             ) : (
                                                 <button
-                                                    onClick={() => confirmDelete('subject', subject.id)}
+                                                    onClick={() =>
+                                                        confirmDelete(
+                                                            'subject',
+                                                            subject.id
+                                                        )
+                                                    }
                                                     className="px-3 py-1 bg-red-500/20 text-red-400 rounded hover:bg-red-500 hover:text-white transition-colors flex items-center"
                                                 >
                                                     <Trash className="w-4 h-4 mr-1" />
@@ -585,14 +612,20 @@ const Manage = ({ senha, navigate }) => {
                 {/* Tutorials List */}
                 <div className="mt-12">
                     <h2 className="text-2xl font-semibold mb-6 text-center dark:text-white text-gray-900">
-                        Monitorias Cadastradas {filteredTutorials.length > 0 && <span className="text-sm text-primary">({filteredTutorials.length})</span>}
+                        Monitorias Cadastradas{' '}
+                        {filteredTutorials.length > 0 && (
+                            <span className="text-sm text-primary">
+                                ({filteredTutorials.length})
+                            </span>
+                        )}
                     </h2>
 
                     {filteredTutorials.length === 0 ? (
                         <div className="text-center py-10 bg-gradient-to-br dark:from-[#1c1c24] dark:to-[#2a2a3a] from-white to-gray-100 rounded-xl border dark:border-gray-700/50 border-gray-200 shadow-lg">
                             <AlertCircle className="h-12 w-12 mx-auto mb-4 text-primary" />
                             <p className="text-lg dark:text-gray-300 text-gray-700">
-                                Nenhuma monitoria encontrada com os filtros atuais.
+                                Nenhuma monitoria encontrada com os filtros
+                                atuais.
                             </p>
                         </div>
                     ) : activeTab === 'card' ? (
@@ -629,7 +662,8 @@ const Manage = ({ senha, navigate }) => {
                                                 <span className="text-primary font-medium">
                                                     Horário:
                                                 </span>{' '}
-                                                {tutorial.horario} - {tutorial.dia}
+                                                {tutorial.horario} -{' '}
+                                                {tutorial.dia}
                                             </p>
                                             <p>
                                                 <span className="text-primary font-medium">
@@ -644,10 +678,16 @@ const Manage = ({ senha, navigate }) => {
                                         </p>
 
                                         <div className="mt-4 flex justify-end">
-                                            {deleteConfirm && deleteConfirm.type === 'tutorial' && deleteConfirm.id === tutorial.id ? (
+                                            {deleteConfirm &&
+                                            deleteConfirm.type === 'tutorial' &&
+                                            deleteConfirm.id === tutorial.id ? (
                                                 <div className="flex space-x-2">
                                                     <button
-                                                        onClick={() => handleDeleteTutorial(tutorial.id)}
+                                                        onClick={() =>
+                                                            handleDeleteTutorial(
+                                                                tutorial.id
+                                                            )
+                                                        }
                                                         className="px-3 py-1 bg-green-500/20 text-green-500 rounded hover:bg-green-500 hover:text-white transition-colors flex items-center"
                                                     >
                                                         <Check className="w-4 h-4 mr-1" />
@@ -662,7 +702,12 @@ const Manage = ({ senha, navigate }) => {
                                                 </div>
                                             ) : (
                                                 <button
-                                                    onClick={() => confirmDelete('tutorial', tutorial.id)}
+                                                    onClick={() =>
+                                                        confirmDelete(
+                                                            'tutorial',
+                                                            tutorial.id
+                                                        )
+                                                    }
                                                     className="px-4 py-2 bg-red-500/20 text-red-400 rounded hover:bg-red-500 hover:text-white transition-colors flex items-center"
                                                 >
                                                     <Trash className="w-4 h-4 mr-2" />
@@ -680,42 +725,83 @@ const Manage = ({ senha, navigate }) => {
                                 <table className="min-w-full">
                                     <thead>
                                         <tr className="dark:bg-gray-800 bg-gray-200 border-b dark:border-gray-700 border-gray-300">
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Matéria</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Monitor</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Professor</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Horário</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Dia</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Local</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Inscritos</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">Ações</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Matéria
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Monitor
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Professor
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Horário
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Dia
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Local
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Inscritos
+                                            </th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium dark:text-gray-400 text-gray-700 uppercase tracking-wider">
+                                                Ações
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y dark:divide-gray-700 divide-gray-300">
                                         {filteredTutorials.map(tutorial => (
-                                            <tr key={tutorial.id} className="hover:dark:bg-gray-800/50 hover:bg-gray-100">
-                                                <td className="px-6 py-4 whitespace-nowrap dark:text-white text-gray-900">{tutorial.Materia.nome}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">{tutorial.Monitor.nome}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">{tutorial.Professor.nome}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">{tutorial.horario}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">{tutorial.dia}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">{tutorial.local}</td>
+                                            <tr
+                                                key={tutorial.id}
+                                                className="hover:dark:bg-gray-800/50 hover:bg-gray-100"
+                                            >
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-white text-gray-900">
+                                                    {tutorial.Materia.nome}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">
+                                                    {tutorial.Monitor.nome}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">
+                                                    {tutorial.Professor.nome}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">
+                                                    {tutorial.horario}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">
+                                                    {tutorial.dia}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap dark:text-gray-300 text-gray-700">
+                                                    {tutorial.local}
+                                                </td>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-primary/20 text-primary">
                                                         {tutorial.inscricoes}
                                                     </span>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
-                                                    {deleteConfirm && deleteConfirm.type === 'tutorial' && deleteConfirm.id === tutorial.id ? (
+                                                    {deleteConfirm &&
+                                                    deleteConfirm.type ===
+                                                        'tutorial' &&
+                                                    deleteConfirm.id ===
+                                                        tutorial.id ? (
                                                         <div className="flex space-x-2">
                                                             <button
-                                                                onClick={() => handleDeleteTutorial(tutorial.id)}
+                                                                onClick={() =>
+                                                                    handleDeleteTutorial(
+                                                                        tutorial.id
+                                                                    )
+                                                                }
                                                                 className="px-2 py-1 bg-green-500/20 text-green-500 rounded hover:bg-green-500 hover:text-white transition-colors flex items-center text-xs"
                                                             >
                                                                 <Check className="w-3 h-3 mr-1" />
                                                                 Sim
                                                             </button>
                                                             <button
-                                                                onClick={cancelDelete}
+                                                                onClick={
+                                                                    cancelDelete
+                                                                }
                                                                 className="px-2 py-1 bg-gray-500/20 dark:text-gray-300 text-gray-700 rounded hover:bg-gray-500 hover:text-white transition-colors text-xs"
                                                             >
                                                                 Não
@@ -723,7 +809,12 @@ const Manage = ({ senha, navigate }) => {
                                                         </div>
                                                     ) : (
                                                         <button
-                                                            onClick={() => confirmDelete('tutorial', tutorial.id)}
+                                                            onClick={() =>
+                                                                confirmDelete(
+                                                                    'tutorial',
+                                                                    tutorial.id
+                                                                )
+                                                            }
                                                             className="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-red-400 bg-red-500/20 hover:bg-red-500 hover:text-white"
                                                         >
                                                             <Trash className="w-3 h-3 mr-1" />
