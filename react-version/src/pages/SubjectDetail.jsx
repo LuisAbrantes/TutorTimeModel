@@ -90,6 +90,7 @@ const ShareButton = React.memo(({ tutorial }) => {
     const [showShareOptions, setShowShareOptions] = useState(false);
     const [showQRCode, setShowQRCode] = useState(false);
     const shareURL = generateShareURL(tutorial);
+    const shareOptionsRef = useRef(null);
 
     const handleShare = platform => {
         switch (platform) {
@@ -125,8 +126,30 @@ const ShareButton = React.memo(({ tutorial }) => {
         }
     };
 
+    // Função para fechar o menu quando clicar fora
+    useEffect(() => {
+        const handleClickOutside = event => {
+            if (
+                shareOptionsRef.current &&
+                !shareOptionsRef.current.contains(event.target)
+            ) {
+                setShowShareOptions(false);
+            }
+        };
+
+        // Adicionar event listener quando o menu estiver aberto
+        if (showShareOptions) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        // Cleanup: remover event listener quando o componente desmontar ou o menu fechar
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showShareOptions]);
+
     return (
-        <div className="relative">
+        <div className="relative" ref={shareOptionsRef}>
             <button
                 onClick={() => setShowShareOptions(!showShareOptions)}
                 className="flex items-center px-3 py-2 bg-primary/20 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
