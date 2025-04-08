@@ -129,7 +129,7 @@ const ShareButton = React.memo(({ tutorial }) => {
         <div className="relative">
             <button
                 onClick={() => setShowShareOptions(!showShareOptions)}
-                className="flex items-center px-3 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500 hover:text-white transition-colors"
+                className="flex items-center px-3 py-2 bg-primary/20 text-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
                 aria-label="Compartilhar monitoria"
             >
                 <Share2 className="h-5 w-5 mr-2" />
