@@ -9,7 +9,7 @@ const TutorialCard = ({ tutorial, onClick, onInscricao }) => {
     
     return (
         <div
-            className="bg-gradient-to-br dark:from-[#18181f] dark:to-[#222230] from-white to-gray-100 rounded-lg overflow-hidden shadow-lg border dark:border-primary/10 border-primary/20 transition-all hover:shadow-xl hover:shadow-primary/20 hover:border-primary/30 animate-fadeIn cursor-pointer"
+            className="bg-gradient-to-br from-[#18181f] to-[#222230] rounded-lg overflow-hidden shadow-lg border border-primary/10 transition-all hover:shadow-xl hover:shadow-primary/20 hover:border-primary/30 animate-fadeIn cursor-pointer"
             onClick={() => onClick(tutorial)}
             tabIndex="0"
             role="button"
@@ -35,12 +35,12 @@ const TutorialCard = ({ tutorial, onClick, onInscricao }) => {
             </div>
 
             <div className="p-5">
-                <h2 className="text-xl font-semibold mb-4 pb-2.5 relative dark:text-white text-gray-900">
+                <h2 className="text-xl font-semibold mb-4 pb-2.5 relative text-white">
                     {tutorial.Materia.nome}
                     <span className="absolute bottom-0 left-0 w-10 h-[3px] bg-primary rounded"></span>
                 </h2>
 
-                <div className="space-y-3 dark:text-gray-300 text-gray-700 text-sm mb-4">
+                <div className="space-y-3 text-gray-300 text-sm mb-4">
                     <p>
                         <span className="text-primary font-medium">
                             Monitor:
@@ -75,7 +75,7 @@ const TutorialCard = ({ tutorial, onClick, onInscricao }) => {
                     </p>
                 </div>
 
-                <p className="dark:text-gray-400 text-gray-600 mt-4 text-sm border-t dark:border-primary/20 border-primary/30 pt-4 line-clamp-3">
+                <p className="text-gray-400 mt-4 text-sm border-t border-primary/20 pt-4 line-clamp-3">
                     {tutorial.descricao}
                 </p>
 

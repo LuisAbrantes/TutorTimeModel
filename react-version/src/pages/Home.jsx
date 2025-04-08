@@ -115,7 +115,7 @@ const Home = ({ navigate }) => {
     };
 
     return (
-        <div className="relative h-screen bg-gradient-to-b from-dark to-darkAlt">
+        <div className="relative h-screen bg-dark">
             {/* Header removido daqui, agora está no App.jsx */}
 
             {/* Slider Items */}

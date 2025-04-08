@@ -22,7 +22,6 @@ import {
 } from 'lucide-react';
 import TutorialCard from '../components/TutorialCard';
 import LazyImage from '../components/LazyImage';
-import { useTheme } from '../context/ThemeContext';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 const DEFAULT_IMAGE = '/logo.png';
@@ -39,9 +38,9 @@ const QRCodeModal = ({ url, onClose }) => {
     
     return (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 animate-fadeIn">
-            <div className="bg-gradient-to-br dark:from-[#1c1c24] dark:to-[#2a2a3a] from-white to-gray-100 rounded-xl p-6 max-w-md w-full">
+            <div className="bg-gradient-to-br from-[#1c1c24] to-[#2a2a3a] rounded-xl p-6 max-w-md w-full">
                 <div className="flex justify-between items-center mb-4">
-                    <h3 className="text-xl font-bold dark:text-white text-gray-900">QR Code para Compartilhamento</h3>
+                    <h3 className="text-xl font-bold text-white">QR Code para Compartilhamento</h3>
                     <button 
                         onClick={onClose}
                         className="bg-black/50 hover:bg-black/70 text-white rounded-full p-1"
@@ -58,7 +57,7 @@ const QRCodeModal = ({ url, onClose }) => {
                     />
                 </div>
                 
-                <p className="dark:text-gray-300 text-gray-700 text-sm mb-4 text-center">
+                <p className="text-gray-300 text-sm mb-4 text-center">
                     Escaneie este código QR para acessar diretamente esta monitoria
                 </p>
                 
@@ -119,32 +118,32 @@ const ShareButton = React.memo(({ tutorial }) => {
             </button>
             
             {showShareOptions && (
-                <div className="absolute right-0 bottom-12 bg-gradient-to-br dark:from-[#1c1c24] dark:to-[#2a2a3a] from-white to-gray-100 rounded-lg p-3 shadow-xl border dark:border-gray-700/50 border-gray-300/50 z-10 animate-fadeIn">
+                <div className="absolute right-0 bottom-12 bg-gradient-to-br from-[#1c1c24] to-[#2a2a3a] rounded-lg p-3 shadow-xl border border-gray-700/50 z-10 animate-fadeIn">
                     <div className="flex flex-col space-y-2">
                         <button 
                             onClick={() => handleShare('whatsapp')}
-                            className="flex items-center px-3 py-2 hover:bg-green-500/20 dark:text-white text-gray-900 rounded-lg transition-colors text-sm"
+                            className="flex items-center px-3 py-2 hover:bg-green-500/20 text-white rounded-lg transition-colors text-sm"
                         >
                             <ExternalLink className="h-4 w-4 mr-2 text-green-400" />
                             WhatsApp
                         </button>
                         <button 
                             onClick={() => handleShare('email')}
-                            className="flex items-center px-3 py-2 hover:bg-blue-500/20 dark:text-white text-gray-900 rounded-lg transition-colors text-sm"
+                            className="flex items-center px-3 py-2 hover:bg-blue-500/20 text-white rounded-lg transition-colors text-sm"
                         >
                             <Mail className="h-4 w-4 mr-2 text-blue-400" />
                             Email
                         </button>
                         <button 
                             onClick={() => handleShare('copy')}
-                            className="flex items-center px-3 py-2 hover:bg-yellow-500/20 dark:text-white text-gray-900 rounded-lg transition-colors text-sm"
+                            className="flex items-center px-3 py-2 hover:bg-yellow-500/20 text-white rounded-lg transition-colors text-sm"
                         >
                             <Copy className="h-4 w-4 mr-2 text-yellow-400" />
                             Copiar link
                         </button>
                         <button 
                             onClick={() => handleShare('qrcode')}
-                            className="flex items-center px-3 py-2 hover:bg-purple-500/20 dark:text-white text-gray-900 rounded-lg transition-colors text-sm"
+                            className="flex items-center px-3 py-2 hover:bg-purple-500/20 text-white rounded-lg transition-colors text-sm"
                         >
                             <QrCode className="h-4 w-4 mr-2 text-purple-400" />
                             Gerar QR code
@@ -165,7 +164,6 @@ const ShareButton = React.memo(({ tutorial }) => {
 
 // Componente principal
 const SubjectDetail = ({ materia = '', navigate }) => {
-    const { darkMode } = useTheme();
     const [tutorials, setTutorials] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -396,7 +394,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
     };
 
     return (
-        <div className="min-h-screen dark:bg-gradient-to-b dark:from-gray-900 dark:to-black bg-gradient-to-b from-light to-lightAlt transition-colors duration-300">
+        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black">
             <div
                 id="success-message"
                 className="fixed top-20 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-opacity duration-300 opacity-0"
@@ -419,7 +417,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
 
             <div className="container mx-auto px-4 py-8 pt-16 animate-fadeIn">
                 <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold dark:text-white text-gray-900 mb-4 md:mb-0">
+                    <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-0">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
                             Monitorias de {materia}
                         </span>
@@ -459,15 +457,15 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                         </button>
                         <button
                             onClick={() => handleNavigation('home')}
-                            className="inline-block px-6 py-3 dark:bg-gray-700 bg-gray-300 dark:text-white text-gray-900 rounded-lg hover:bg-gray-600 hover:text-white transition-colors"
+                            className="inline-block px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
                         >
                             Voltar para a Página Inicial
                         </button>
                     </div>
                 ) : tutorials.length === 0 ? (
-                    <div className="text-center dark:bg-gray-800/50 bg-gray-100 border dark:border-gray-700 border-gray-300 rounded-xl p-8 shadow-lg">
-                        <Users className="h-12 w-12 dark:text-gray-400 text-gray-500 mx-auto mb-4" />
-                        <p className="text-xl dark:text-gray-400 text-gray-600 mb-4">
+                    <div className="text-center bg-gray-800/50 border border-gray-700 rounded-xl p-8 shadow-lg">
+                        <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                        <p className="text-xl text-gray-400 mb-4">
                             Nenhuma monitoria encontrada para esta matéria.
                         </p>
                         <button
@@ -479,26 +477,26 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                     </div>
                 ) : (
                     <>
-                        <div className="mb-4 dark:bg-gray-800/30 bg-gray-200 p-3 rounded-lg text-sm dark:text-gray-400 text-gray-600">
+                        <div className="mb-4 bg-gray-800/30 p-3 rounded-lg text-sm text-gray-400">
                             <span className="font-medium">
                                 Dicas de atalhos:
                             </span>{' '}
                             Pressione{' '}
-                            <kbd className="px-2 py-1 dark:bg-gray-700 bg-gray-300 rounded text-xs">
+                            <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">
                                 /
                             </kbd>{' '}
                             para pesquisar,{' '}
-                            <kbd className="px-2 py-1 dark:bg-gray-700 bg-gray-300 rounded text-xs">
+                            <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">
                                 Command/Control+Shift+G
                             </kbd>{' '}
                             para visualização em grade,{' '}
-                            <kbd className="px-2 py-1 dark:bg-gray-700 bg-gray-300 rounded text-xs">
+                            <kbd className="px-2 py-1 bg-gray-700 rounded text-xs">
                                 Command/Control+Shift+L
                             </kbd>{' '}
                             para lista.
                         </div>
 
-                        <div className="mb-8 dark:bg-gray-800/30 bg-white/80 p-4 rounded-xl border dark:border-gray-700/50 border-gray-300/50 shadow-lg">
+                        <div className="mb-8 bg-gray-800/30 p-4 rounded-xl border border-gray-700/50 shadow-lg">
                             <div className="flex flex-col md:flex-row gap-4">
                                 <div className="flex-1">
                                     <div className="relative">
@@ -506,20 +504,20 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                             ref={searchInputRef}
                                             type="text"
                                             placeholder="Pesquisar monitor, professor, local..."
-                                            className="w-full dark:bg-gray-900/80 bg-white text-gray-900 dark:text-white border dark:border-gray-700 border-gray-300 rounded-lg py-3 px-4 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-primary"
+                                            className="w-full bg-gray-900/80 text-white border border-gray-700 rounded-lg py-3 px-4 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-primary"
                                             value={searchTerm}
                                             onChange={e =>
                                                 setSearchTerm(e.target.value)
                                             }
                                         />
-                                        <Search className="h-5 w-5 absolute top-3.5 left-3 dark:text-gray-400 text-gray-500" />
+                                        <Search className="h-5 w-5 absolute top-3.5 left-3 text-gray-400" />
                                         {searchTerm && (
                                             <button
                                                 onClick={() => {
                                                     setSearchTerm('');
                                                     searchInputRef.current?.focus();
                                                 }}
-                                                className="absolute right-3 top-3.5 dark:text-gray-400 text-gray-500 hover:text-primary transition-colors"
+                                                className="absolute right-3 top-3.5 text-gray-400 hover:text-white transition-colors"
                                                 aria-label="Limpar pesquisa"
                                             >
                                                 <X className="h-5 w-5" />
@@ -534,7 +532,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                         onChange={e =>
                                             setFilter(e.target.value)
                                         }
-                                        className="dark:bg-gray-900/80 bg-white dark:text-white text-gray-900 border dark:border-gray-700 border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary"
+                                        className="bg-gray-900/80 text-white border border-gray-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary"
                                         aria-label="Filtrar por dia"
                                     >
                                         <option value="all">
@@ -552,7 +550,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                         onChange={e =>
                                             setLocationFilter(e.target.value)
                                         }
-                                        className="dark:bg-gray-900/80 bg-white dark:text-white text-gray-900 border dark:border-gray-700 border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary"
+                                        className="bg-gray-900/80 text-white border border-gray-700 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary"
                                         aria-label="Filtrar por local"
                                     >
                                         <option value="all">
@@ -568,13 +566,13 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                         ))}
                                     </select>
 
-                                    <div className="flex rounded-lg overflow-hidden border dark:border-gray-700 border-gray-300">
+                                    <div className="flex rounded-lg overflow-hidden border border-gray-700">
                                         <button
                                             onClick={() => setActiveTab('grid')}
                                             className={`px-3 py-2 ${
                                                 activeTab === 'grid'
                                                     ? 'bg-primary text-white'
-                                                    : 'dark:bg-gray-900/80 bg-white/80 dark:text-gray-400 text-gray-600'
+                                                    : 'bg-gray-900/80 text-gray-400'
                                             } transition-colors duration-200`}
                                             aria-label="Visualização em grade"
                                             title="Visualização em grade (Command/Control+Shift+G)"
@@ -586,7 +584,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                             className={`px-3 py-2 ${
                                                 activeTab === 'list'
                                                     ? 'bg-primary text-white'
-                                                    : 'dark:bg-gray-900/80 bg-white/80 dark:text-gray-400 text-gray-600'
+                                                    : 'bg-gray-900/80 text-gray-400'
                                             } transition-colors duration-200`}
                                             aria-label="Visualização em lista"
                                             title="Visualização em lista (Command/Control+Shift+L)"
@@ -599,7 +597,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                         </div>
 
                         <div className="mb-6 flex justify-between items-center">
-                            <div className="dark:text-gray-400 text-gray-600">
+                            <div className="text-gray-400">
                                 Exibindo {filteredTutorials.length} de{' '}
                                 {tutorials.length} monitorias
                             </div>
@@ -637,7 +635,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                         (tutorial, index) => (
                                             <div
                                                 key={`${tutorial.id}-${index}`}
-                                                className="bg-gradient-to-r dark:from-[#18181f] dark:to-[#222230] from-white to-gray-100 rounded-lg overflow-hidden shadow-lg border dark:border-primary/10 border-primary/20 transition-all hover:shadow-xl hover:shadow-primary/20 hover:border-primary/30 animate-fadeIn cursor-pointer"
+                                                className="bg-gradient-to-r from-[#18181f] to-[#222230] rounded-lg overflow-hidden shadow-lg border border-primary/10 transition-all hover:shadow-xl hover:shadow-primary/20 hover:border-primary/30 animate-fadeIn cursor-pointer"
                                                 style={{
                                                     animationDelay: `${
                                                         index * 0.05
@@ -674,7 +672,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
 
                                                     <div className="p-5 flex-1">
                                                         <div className="flex flex-col md:flex-row md:items-center justify-between">
-                                                            <h2 className="text-xl font-semibold mb-4 md:mb-0 relative dark:text-white text-gray-900">
+                                                            <h2 className="text-xl font-semibold mb-4 md:mb-0 relative text-white">
                                                                 {
                                                                     tutorial
                                                                         .Materia
@@ -698,7 +696,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                                                 <p className="text-primary font-medium text-sm">
                                                                     Monitor
                                                                 </p>
-                                                                <p className="dark:text-gray-300 text-gray-700">
+                                                                <p className="text-gray-300">
                                                                     {
                                                                         tutorial
                                                                             .Monitor
@@ -711,7 +709,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                                                 <p className="text-primary font-medium text-sm">
                                                                     Professor
                                                                 </p>
-                                                                <p className="dark:text-gray-300 text-gray-700">
+                                                                <p className="text-gray-300">
                                                                     {
                                                                         tutorial
                                                                             .Professor
@@ -725,7 +723,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                                                     Horário e
                                                                     Local
                                                                 </p>
-                                                                <p className="dark:text-gray-300 text-gray-700">
+                                                                <p className="text-gray-300">
                                                                     {
                                                                         tutorial.horario
                                                                     }{' '}
@@ -734,7 +732,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                                                         tutorial.dia
                                                                     }
                                                                 </p>
-                                                                <p className="dark:text-gray-300 text-gray-700">
+                                                                <p className="text-gray-300">
                                                                     {
                                                                         tutorial.local
                                                                     }
@@ -742,7 +740,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                                             </div>
                                                         </div>
 
-                                                        <p className="dark:text-gray-400 text-gray-600 mt-4 text-sm line-clamp-2 border-t dark:border-primary/20 border-primary/30 pt-4">
+                                                        <p className="text-gray-400 mt-4 text-sm line-clamp-2 border-t border-primary/20 pt-4">
                                                             {tutorial.descricao}
                                                         </p>
 
@@ -770,8 +768,8 @@ const SubjectDetail = ({ materia = '', navigate }) => {
 
                         {filteredTutorials.length === 0 && (
                             <div className="text-center py-10">
-                                <Users className="h-12 w-12 dark:text-gray-400 text-gray-500 mx-auto mb-4" />
-                                <p className="dark:text-gray-400 text-gray-600 text-lg">
+                                <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                                <p className="text-gray-400 text-lg">
                                     Nenhuma monitoria corresponde aos filtros
                                     selecionados.
                                 </p>
@@ -790,7 +788,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
             {showDetailModal && selectedTutorial && (
                 <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 animate-fadeIn">
                     <div
-                        className="bg-gradient-to-br dark:from-[#1c1c24] dark:to-[#2a2a3a] from-white to-gray-100 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+                        className="bg-gradient-to-br from-[#1c1c24] to-[#2a2a3a] rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
                         onClick={e => e.stopPropagation()}
                     >
                         <div className="relative h-60">
@@ -811,7 +809,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
 
                         <div className="p-6">
                             <div className="flex justify-between items-start mb-6">
-                                <h2 className="text-2xl font-bold dark:text-white text-gray-900">
+                                <h2 className="text-2xl font-bold text-white">
                                     Monitoria de {selectedTutorial.Materia.nome}
                                 </h2>
                                 
@@ -823,7 +821,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                     <h3 className="text-primary font-semibold mb-2">
                                         Detalhes da Monitoria
                                     </h3>
-                                    <ul className="space-y-3 dark:text-gray-300 text-gray-700">
+                                    <ul className="space-y-3 text-gray-300">
                                         <li className="flex">
                                             <User className="h-5 w-5 text-primary mr-2 flex-shrink-0" />
                                             <span>
@@ -852,7 +850,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                     <h3 className="text-primary font-semibold mb-2">
                                         Horário e Local
                                     </h3>
-                                    <ul className="space-y-3 dark:text-gray-300 text-gray-700">
+                                    <ul className="space-y-3 text-gray-300">
                                         <li className="flex">
                                             <Clock className="h-5 w-5 text-primary mr-2 flex-shrink-0" />
                                             <span>
@@ -889,7 +887,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                                 <h3 className="text-primary font-semibold mb-2">
                                     Descrição
                                 </h3>
-                                <p className="dark:text-gray-300 text-gray-700">
+                                <p className="text-gray-300">
                                     {selectedTutorial.descricao}
                                 </p>
                             </div>
@@ -897,7 +895,7 @@ const SubjectDetail = ({ materia = '', navigate }) => {
                             <div className="flex justify-between">
                                 <button
                                     onClick={() => setShowDetailModal(false)}
-                                    className="px-6 py-2 dark:bg-gray-700 bg-gray-200 dark:text-white text-gray-900 rounded-lg hover:bg-gray-600 hover:text-white transition-colors"
+                                    className="px-6 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
                                 >
                                     Fechar
                                 </button>

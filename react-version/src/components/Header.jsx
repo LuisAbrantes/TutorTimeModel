@@ -17,7 +17,7 @@ const Header = ({ navigate, currentPage }) => {
     };
 
     return (
-        <header className="flex items-center justify-between flex-wrap w-full max-w-7xl mx-auto px-5 py-3 box-border relative z-50 bg-darkAlt shadow-md">
+        <header className="flex items-center justify-between flex-wrap w-full max-w-7xl mx-auto px-5 py-3 box-border relative z-50">
             <div className="flex items-center">
                 <div className="mr-2.5">
                     <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
