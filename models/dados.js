@@ -1,11 +1,14 @@
 //Database
     const { Sequelize, DataTypes } = require('sequelize');
-    const sequelize = new Sequelize('tutortime', 'root', 'qwepoi', {
-        host: 'localhost',
-        dialect: 'mysql',
-        query: { raw: true },
-        logging: false
-    });
+    const sequelize = new Sequelize(
+        'postgresql://postgres.otwcuihljspwfnhvkcgq:dvklHj0W8aMgheh7@aws-0-sa-east-1.pooler.supabase.com:6543/postgres',
+        {
+            host: 'localhost',
+            dialect: 'postgres', // Alterado de 'mysql' para 'postgres'
+            query: { raw: true },
+            logging: false
+        }
+    );
     let contador =0
 //Chalk
     const chalk = require('chalk')
