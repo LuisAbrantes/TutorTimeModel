@@ -20,8 +20,12 @@ const Header = ({ navigate, currentPage }) => {
         <header className="flex items-center justify-between flex-wrap w-full max-w-7xl mx-auto px-5 py-3 box-border relative z-50">
             <div className="flex items-center">
                 <div className="mr-2.5">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-                        TT
+                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                        <img
+                            src="/assets/logos/versao_icone.png"
+                            alt="TutorTime Logo"
+                            className="w-full h-full object-cover"
+                        />
                     </div>
                 </div>
                 <span className="text-white">TutorTime - IFSP</span>
