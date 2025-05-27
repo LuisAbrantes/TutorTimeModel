@@ -55,7 +55,7 @@ app.set("view engine", "handlebars"); //Definindo engine como HANDLEBARS
 //CORS para permitir requisições do frontend React
 app.use(
   cors({
-    origin: "http://localhost:5174", // URL do seu app React
+    origin: "tutor-time-v0-2.vercel.app", // URL do seu app React
     credentials: true,
   })
 );
