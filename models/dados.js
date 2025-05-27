@@ -3,7 +3,6 @@ const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(
   "postgresql://postgres.xnpeofkztgczpwpjzevz:EEz)B4SdAsVQNiq@aws-0-sa-east-1.pooler.supabase.com:6543/postgres",
   {
-    host: "localhost",
     dialect: "postgres", // Alterado de 'mysql' para 'postgres'
     query: { raw: true },
     logging: false,
