@@ -1,47 +1,47 @@
 //Database
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = new Sequelize(
-    'postgresql://postgres.mxcgphlxcthshylssfbf:e4HrCJAthtUszP8l@aws-0-us-east-2.pooler.supabase.com:6543/postgres',
-    {
-        host: 'localhost',
-        dialect: 'postgres', // Alterado de 'mysql' para 'postgres'
-        query: { raw: true },
-        logging: false
-    }
+  "postgresql://postgres.xnpeofkztgczpwpjzevz:EEz)B4SdAsVQNiq@aws-0-sa-east-1.pooler.supabase.com:6543/postgres",
+  {
+    host: "localhost",
+    dialect: "postgres", // Alterado de 'mysql' para 'postgres'
+    query: { raw: true },
+    logging: false,
+  }
 );
 let contador = 0;
 //Chalk
-const chalk = require('chalk');
+const chalk = require("chalk");
 const say = console.log;
 
 //Tabelas
 //Professores
 
-const Professor = sequelize.define('Professor', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nome: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: true
-    }
+const Professor = sequelize.define("Professor", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 if (Professor) {
-    contador++;
-    say(
-        chalk.yellow(`${contador}/5 `) +
-            chalk.greenBright('Tabela ') +
-            chalk.magenta('Professor ') +
-            chalk.greenBright('Criada com Sucesso!')
-    );
+  contador++;
+  say(
+    chalk.yellow(`${contador}/5 `) +
+      chalk.greenBright("Tabela ") +
+      chalk.magenta("Professor ") +
+      chalk.greenBright("Criada com Sucesso!")
+  );
 } else {
-    say(chalk.redBright('Falha ao Criar Tabela Professor!'));
+  say(chalk.redBright("Falha ao Criar Tabela Professor!"));
 }
 /*
         +-----------+--------------+------+-----+---------+----------------+
@@ -56,35 +56,35 @@ if (Professor) {
         */
 
 //Monitores
-const Monitor = sequelize.define('Monitor', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nome: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    materia: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
+const Monitor = sequelize.define("Monitor", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  materia: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
 });
 if (Monitor) {
-    contador++;
-    say(
-        chalk.yellow(`${contador}/5 `) +
-            chalk.greenBright('Tabela ') +
-            chalk.magenta('Monitor ') +
-            chalk.greenBright('Criada com Sucesso!')
-    );
+  contador++;
+  say(
+    chalk.yellow(`${contador}/5 `) +
+      chalk.greenBright("Tabela ") +
+      chalk.magenta("Monitor ") +
+      chalk.greenBright("Criada com Sucesso!")
+  );
 } else {
-    say(chalk.redBright('Falha ao Criar Tabela Monitor!'));
+  say(chalk.redBright("Falha ao Criar Tabela Monitor!"));
 }
 
 /*
@@ -100,35 +100,35 @@ if (Monitor) {
         */
 
 //Materias
-const Materia = sequelize.define('Materia', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nome: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    descricao: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    },
-    imagemUrl: {
-        type: DataTypes.STRING,
-        allowNull: true
-    }
+const Materia = sequelize.define("Materia", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  descricao: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  imagemUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 if (Materia) {
-    contador++;
-    say(
-        chalk.yellow(`${contador}/5 `) +
-            chalk.greenBright('Tabela ') +
-            chalk.magenta('Materia ') +
-            chalk.greenBright('Criada com Sucesso!')
-    );
+  contador++;
+  say(
+    chalk.yellow(`${contador}/5 `) +
+      chalk.greenBright("Tabela ") +
+      chalk.magenta("Materia ") +
+      chalk.greenBright("Criada com Sucesso!")
+  );
 } else {
-    say(chalk.redBright('Falha ao Criar Tabela Materia!'));
+  say(chalk.redBright("Falha ao Criar Tabela Materia!"));
 }
 /*
         +-----------+--------------+------+-----+---------+----------------+
@@ -143,68 +143,68 @@ if (Materia) {
         */
 
 //Monitoria
-const Monitoria = sequelize.define('Monitoria', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+const Monitoria = sequelize.define("Monitoria", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  inscricoes: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  horario: {
+    type: DataTypes.TIME,
+    allowNull: false,
+  },
+  dia: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  local: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  imagemUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  descricao: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  professorId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Professor,
+      key: "id",
     },
-    inscricoes: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0
+  },
+  monitorId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Monitor,
+      key: "id",
     },
-    horario: {
-        type: DataTypes.TIME,
-        allowNull: false
+  },
+  materiaId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Materia,
+      key: "id",
     },
-    dia: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    local: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    imagemUrl: {
-        type: DataTypes.STRING,
-        allowNull: true
-    },
-    descricao: {
-        type: DataTypes.TEXT,
-        allowNull: true
-    },
-    professorId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Professor,
-            key: 'id'
-        }
-    },
-    monitorId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Monitor,
-            key: 'id'
-        }
-    },
-    materiaId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Materia,
-            key: 'id'
-        }
-    }
+  },
 });
 if (Monitoria) {
-    contador++;
-    say(
-        chalk.yellow(`${contador}/5 `) +
-            chalk.greenBright('Tabela ') +
-            chalk.magenta('Monitoria ') +
-            chalk.greenBright('Criada com Sucesso!')
-    );
+  contador++;
+  say(
+    chalk.yellow(`${contador}/5 `) +
+      chalk.greenBright("Tabela ") +
+      chalk.magenta("Monitoria ") +
+      chalk.greenBright("Criada com Sucesso!")
+  );
 } else {
-    say(chalk.redBright('Falha ao Criar Tabela Monitoria!'));
+  say(chalk.redBright("Falha ao Criar Tabela Monitoria!"));
 }
 /*
         +-------------+--------------+------+-----+---------+----------------+
@@ -226,25 +226,25 @@ if (Monitoria) {
         */
 
 //Monitorias Existentes
-const Existente = sequelize.define('Existente', {
-    nome: {
-        type: DataTypes.STRING,
-        allowNull: false // Garante que o campo nome não seja nulo
-    },
-    imagemUrl: {
-        type: DataTypes.STRING
-    }
+const Existente = sequelize.define("Existente", {
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false, // Garante que o campo nome não seja nulo
+  },
+  imagemUrl: {
+    type: DataTypes.STRING,
+  },
 });
 if (Existente) {
-    contador++;
-    say(
-        chalk.yellow(`${contador}/5 `) +
-            chalk.greenBright('Tabela ') +
-            chalk.magenta('Existente ') +
-            chalk.greenBright('Criada com Sucesso!')
-    );
+  contador++;
+  say(
+    chalk.yellow(`${contador}/5 `) +
+      chalk.greenBright("Tabela ") +
+      chalk.magenta("Existente ") +
+      chalk.greenBright("Criada com Sucesso!")
+  );
 } else {
-    say(chalk.redBright('Falha ao Criar Tabela Existente!'));
+  say(chalk.redBright("Falha ao Criar Tabela Existente!"));
 }
 /*
         +-----------+--------------+------+-----+---------+----------------+
@@ -260,46 +260,46 @@ if (Existente) {
 
 //Definindo os relacionamentos
 Monitoria.belongsTo(Professor, {
-    foreignKey: 'professorId',
-    as: 'Professor'
+  foreignKey: "professorId",
+  as: "Professor",
 });
 
 Monitoria.belongsTo(Monitor, {
-    foreignKey: 'monitorId',
-    as: 'Monitor'
+  foreignKey: "monitorId",
+  as: "Monitor",
 });
 
 Monitoria.belongsTo(Materia, {
-    foreignKey: 'materiaId',
-    as: 'Materia'
+  foreignKey: "materiaId",
+  as: "Materia",
 });
 
 Professor.hasMany(Monitoria, {
-    foreignKey: 'professorId',
-    as: 'Monitorias'
+  foreignKey: "professorId",
+  as: "Monitorias",
 });
 
 Monitor.hasMany(Monitoria, {
-    foreignKey: 'monitorId',
-    as: 'Monitorias'
+  foreignKey: "monitorId",
+  as: "Monitorias",
 });
 
 Materia.hasMany(Monitoria, {
-    foreignKey: 'materiaId',
-    as: 'Monitorias'
+  foreignKey: "materiaId",
+  as: "Monitorias",
 });
 
 //Sincronizar todas as tabelas com o banco de dados
 sequelize
-    .sync()
-    .then(() => say(chalk.yellow('Todas as tabelas foram criadas com sucesso')))
-    .catch(error => console.error('Erro ao criar tabelas:', error));
+  .sync()
+  .then(() => say(chalk.yellow("Todas as tabelas foram criadas com sucesso")))
+  .catch((error) => console.error("Erro ao criar tabelas:", error));
 
 //Exportação
 module.exports = {
-    Professor,
-    Monitor,
-    Materia,
-    Monitoria,
-    Existente
+  Professor,
+  Monitor,
+  Materia,
+  Monitoria,
+  Existente,
 };
