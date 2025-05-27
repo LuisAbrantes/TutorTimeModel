@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { Search, AlertCircle, X, List, Grid, Trash, Check } from "lucide-react";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "https://tutortime-v0-2.onrender.com/api";
 const DEFAULT_IMAGE = "/logo.png";
 
 const Manage = ({ senha, navigate }) => {
