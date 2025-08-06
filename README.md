@@ -5,10 +5,6 @@
 <br>
 <p align="center">
 
-<h2>👨‍🏫 Professores Responsáveis</h2>
-
-	•	Carlos Eduardo Duque Polito
-	•	Olavo Olímpio de Matos Junior
 
 <h2>🎯 Objetivo do Projeto</h2>
 
