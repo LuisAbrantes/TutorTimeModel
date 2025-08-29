@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Header = ({ navigate, currentPage }) => {
     // Função para determinar a classe ativa
     const getLinkClass = page => {
@@ -73,6 +71,21 @@ const Header = ({ navigate, currentPage }) => {
                     >
                         Manage
                         {currentPage === 'manage' && (
+                            <span className="absolute bottom-1.5 left-4 w-[calc(100%-30px)] h-0.5 bg-primary rounded-sm"></span>
+                        )}
+                    </a>
+                </li>
+                <li className="mx-2.5">
+                    <a
+                        href="#"
+                        onClick={e => {
+                            e.preventDefault();
+                            navigate('tutor');
+                        }}
+                        className={getLinkClass('tutor')}
+                    >
+                        TutorTime IA
+                        {currentPage === 'tutor' && (
                             <span className="absolute bottom-1.5 left-4 w-[calc(100%-30px)] h-0.5 bg-primary rounded-sm"></span>
                         )}
                     </a>

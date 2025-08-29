@@ -9,6 +9,7 @@ const Login = lazy(() => import('./pages/Login'));
 const Manage = lazy(() => import('./pages/Manage'));
 const SubjectDetail = lazy(() => import('./pages/SubjectDetail'));
 const Calendar = lazy(() => import('./pages/Calendar'));
+const AITutor = lazy(() => import('./pages/AITutor'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Componente de loading para Suspense
@@ -63,6 +64,8 @@ function App() {
                 );
             case 'calendar':
                 return <Calendar navigate={navigate} />;
+            case 'tutor':
+                return <AITutor navigate={navigate} />;
             default:
                 return <NotFound navigate={navigate} />;
         }
