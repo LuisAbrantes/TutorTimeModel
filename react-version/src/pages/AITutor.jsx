@@ -56,7 +56,8 @@ const AITutor = ({ navigate }) => {
                     - Se for uma pergunta técnica/acadêmica, explique passo a passo
                     - Mantenha um tom amigável e educativo
                     - Use emojis ocasionalmente para tornar a resposta mais amigável
-                    - Se não souber algo específico, seja honesto mas ofereça alternativas`
+                    - Se não souber algo específico, seja honesto mas ofereça alternativas
+                    - Se alguém perguntar de monitorias em específico que estejam sido fornecidas, diga que você não tem informações sobre isso, e que você é uma inteligencia artificial focada em tirar dúvidas específicas.`
                 }]
             });
             
