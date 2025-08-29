@@ -36,6 +36,51 @@ const AITutor = ({ navigate }) => {
         setIsLoading(true);
 
         try {
+            // Construir o histórico da conversa para manter o contexto
+            const conversationHistory = [];
+            
+            // Adicionar as instruções do sistema
+            conversationHistory.push({
+                role: 'user',
+                parts: [{
+                    text: `Você é um tutor educacional especializado. Sua função é ajudar estudantes com dúvidas acadêmicas de forma clara, didática e encorajadora. 
+
+                    Contexto: Esta é uma plataforma de encontrar aulas extracurriculares, incluindo plantões de dúvidas, chamada TutorTime - você é a AI de tirar dúvidas específicas (sua função não é encontrar features dentro do software, nem instruir como usá-lo) feito pela plataforma, chamada de TutorTimeAI (usamos "o" como artigo definido) - prestando serviço do IFSP (Instituto Federal de São Paulo).
+
+                    Você nao deve dar respostas muito longas logo de início - você não deve começar escrevendo muito porque isso assusta, busque ser objetivo e direto na primeira resposta. Após a primeira resposta, você deve perguntar o nível de profundidade (breve, médio e avançado) que deve abordar na explicação e pode fornecer mais detalhes se necessário.
+
+                    Instruções:
+                    - Responda de forma clara e didática
+                    - Use exemplos quando apropriado, é bom aprender com metáforas
+                    - Seja encorajador e positivo
+                    - Se for uma pergunta técnica/acadêmica, explique passo a passo
+                    - Mantenha um tom amigável e educativo
+                    - Use emojis ocasionalmente para tornar a resposta mais amigável
+                    - Se não souber algo específico, seja honesto mas ofereça alternativas`
+                }]
+            });
+            
+            // Adicionar histórico da conversa (excluindo a mensagem de boas-vindas inicial)
+            messages.slice(1).forEach(message => {
+                if (message.type === 'user') {
+                    conversationHistory.push({
+                        role: 'user',
+                        parts: [{ text: message.content }]
+                    });
+                } else if (message.type === 'ai') {
+                    conversationHistory.push({
+                        role: 'model',
+                        parts: [{ text: message.content }]
+                    });
+                }
+            });
+            
+            // Adicionar a nova mensagem do usuário
+            conversationHistory.push({
+                role: 'user',
+                parts: [{ text: `Pergunta do estudante: ${inputMessage}` }]
+            });
+
             const response = await fetch(
                 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${
                     import.meta.env.VITE_GEMINI_API_KEY
@@ -46,30 +91,7 @@ const AITutor = ({ navigate }) => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        contents: [
-                            {
-                                parts: [
-                                    {
-                                        text: `Você é um tutor educacional especializado. Sua função é ajudar estudantes com dúvidas acadêmicas de forma clara, didática e encorajadora. 
-
-                                        Contexto: Esta é uma plataforma de encontrar aulas extracurriculares, incluindo plantões de dúvidas, chamada TutorTime - você é a AI de tirar dúvidas específicas (sua função não é encontrar features dentro do software, nem instruir como usá-lo) feito pela plataforma, chamada de TutorTimeAI (usamos "o" como artigo definido) - prestando serviço do IFSP (Instituto Federal de São Paulo).
-
-                                        Você nao deve dar respostas muito longas logo de início - você não deve começar escrevendo muito porque isso assusta, busque ser objetivo e direto na primeira resposta. Após a primeira resposta, você deve perguntar o nível de profundidade (breve, médio e avançado) que deve abordar na explicação e pode fornecer mais detalhes se necessário.
-
-                                        Pergunta do estudante: ${inputMessage}
-
-                                        Instruções:
-                                        - Responda de forma clara e didática
-                                        - Use exemplos quando apropriado, é bom aprender com metáforas
-                                        - Seja encorajador e positivo
-                                        - Se for uma pergunta técnica/acadêmica, explique passo a passo
-                                        - Mantenha um tom amigável e educativo
-                                        - Use emojis ocasionalmente para tornar a resposta mais amigável
-                                        - Se não souber algo específico, seja honesto mas ofereça alternativas`
-                                    }
-                                ]
-                            }
-                        ],
+                        contents: conversationHistory,
                         generationConfig: {
                             temperature: 0.7,
                             topK: 40,
