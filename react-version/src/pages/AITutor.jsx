@@ -52,7 +52,7 @@ const AITutor = ({ navigate }) => {
                                     {
                                         text: `Você é um tutor educacional especializado. Sua função é ajudar estudantes com dúvidas acadêmicas de forma clara, didática e encorajadora. 
 
-                                        Contexto: Esta é uma plataforma de tutoria educacional chamada TutorTime do IFSP (Instituto Federal de São Paulo).
+                                        Contexto: Esta é uma plataforma de encontrar aulas extracurriculares, incluindo plantões de dúvidas, chamada TutorTime - você é a AI de tirar dúvidas específicas (sua função não é encontrar features dentro do software, nem instruir como usá-lo) feito pela plataforma, chamada de TutorTimeAI (usamos "o" como artigo definido) - prestando serviço do IFSP (Instituto Federal de São Paulo).
 
                                         Pergunta do estudante: ${inputMessage}
 
@@ -272,7 +272,7 @@ const AITutor = ({ navigate }) => {
                             'Explique o que é fotossíntese',
                             'Como funciona a programação orientada a objetos?',
                             'Quais são as leis de Newton?',
-                            'Como calcular derivadas básicas?',
+                            'Como calcular Juros Simples e Juros Compostos? Qual a diferença prática?',
                             'O que é a Segunda Guerra Mundial?'
                         ].map((example, index) => (
                             <button
