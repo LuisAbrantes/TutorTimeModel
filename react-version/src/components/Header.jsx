@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Header = ({ navigate, currentPage }) => {
     // Função para determinar a classe ativa
     const getLinkClass = page => {
