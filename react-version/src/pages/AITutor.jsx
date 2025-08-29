@@ -169,6 +169,17 @@ const AITutor = ({ navigate }) => {
         ]);
     };
 
+    // Função para detectar se a última mensagem da AI pergunta sobre profundidade
+    const shouldShowProfundidadeShortcuts = () => {
+        const lastMessage = messages[messages.length - 1];
+        if (!lastMessage || lastMessage.type !== 'ai') return false;
+        
+        const content = lastMessage.content.toLowerCase();
+        return content.includes('breve') && 
+               content.includes('médio') && 
+               (content.includes('avançado') || content.includes('detalhada'));
+    };
+
     return (
         <div className="min-h-screen bg-gray-900 py-8">
             <div className="max-w-4xl mx-auto px-4">
@@ -284,6 +295,36 @@ const AITutor = ({ navigate }) => {
                             <Send className="w-5 h-5" />
                         </button>
                     </div>
+                    
+                    {/* Shortcuts de Profundidade */}
+                    {shouldShowProfundidadeShortcuts() && (
+                        <div className="mt-3 pt-3 border-t border-gray-700">
+                            <p className="text-gray-400 text-xs mb-2">🎯 Nível de profundidade:</p>
+                            <div className="flex space-x-2">
+                                <button
+                                    onClick={() => setInputMessage('breve')}
+                                    className="px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded-md text-white text-sm transition-colors"
+                                    disabled={isLoading}
+                                >
+                                    📝 Breve
+                                </button>
+                                <button
+                                    onClick={() => setInputMessage('médio')}
+                                    className="px-3 py-1 bg-yellow-600 hover:bg-yellow-500 rounded-md text-white text-sm transition-colors"
+                                    disabled={isLoading}
+                                >
+                                    📖 Médio
+                                </button>
+                                <button
+                                    onClick={() => setInputMessage('avançado')}
+                                    className="px-3 py-1 bg-red-600 hover:bg-red-500 rounded-md text-white text-sm transition-colors"
+                                    disabled={isLoading}
+                                >
+                                    🎓 Avançado
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Examples */}
