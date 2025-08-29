@@ -174,15 +174,13 @@ const AITutor = ({ navigate }) => {
         const lastMessage = messages[messages.length - 1];
         if (!lastMessage || lastMessage.type !== 'ai') return false;
         
-        const content = lastMessage.content.toLowerCase();
-        return content.includes('breve') && 
-               content.includes('médio') && 
-               (content.includes('avançado') || content.includes('detalhada'));
+        // Mostra os botões sempre após uma resposta da IA (exceto a mensagem inicial de boas-vindas)
+        return messages.length > 1;
     };
 
     return (
         <div className="min-h-screen bg-gray-900 py-8">
-            <div className="max-w-4xl mx-auto px-4">
+            <div className="max-w-6xl mx-auto px-4">
                 {/* Header */}
                 <div className="bg-gray-800 rounded-t-lg p-6 border-b border-gray-700">
                     <div className="flex items-center justify-between">
@@ -210,7 +208,7 @@ const AITutor = ({ navigate }) => {
                 </div>
 
                 {/* Chat Messages */}
-                <div className="bg-gray-800 h-96 overflow-y-auto p-4 space-y-4">
+                <div className="bg-gray-800 h-[36rem] overflow-y-auto p-4 space-y-4">
                     {messages.map(message => (
                         <div
                             key={message.id}
@@ -221,7 +219,7 @@ const AITutor = ({ navigate }) => {
                             }`}
                         >
                             <div
-                                className={`flex items-start space-x-2 max-w-xs lg:max-w-md ${
+                                className={`flex items-start space-x-2 max-w-md lg:max-w-2xl ${
                                     message.type === 'user'
                                         ? 'flex-row-reverse space-x-reverse'
                                         : ''
