@@ -38,12 +38,13 @@ const AITutor = ({ navigate }) => {
         try {
             // Construir o histórico da conversa para manter o contexto
             const conversationHistory = [];
-            
+
             // Adicionar as instruções do sistema
             conversationHistory.push({
                 role: 'user',
-                parts: [{
-                    text: `Você é um tutor educacional especializado. Sua função é ajudar estudantes com dúvidas acadêmicas de forma clara, didática e encorajadora. 
+                parts: [
+                    {
+                        text: `Você é um tutor educacional especializado. Sua função é ajudar estudantes com dúvidas acadêmicas de forma clara, didática e encorajadora. 
 
                     Contexto: Esta é uma plataforma de encontrar aulas extracurriculares, incluindo plantões de dúvidas, chamada TutorTime - você é a AI de tirar dúvidas específicas (sua função não é encontrar features dentro do software, nem instruir como usá-lo) feito pela plataforma, chamada de TutorTimeAI (usamos "o" como artigo definido) - prestando serviço do IFSP (Instituto Federal de São Paulo).
 
@@ -58,9 +59,10 @@ const AITutor = ({ navigate }) => {
                     - Use emojis ocasionalmente para tornar a resposta mais amigável
                     - Se não souber algo específico, seja honesto mas ofereça alternativas
                     - Se alguém perguntar de monitorias em específico que estejam sido fornecidas, diga que você não tem informações sobre isso, e que você é uma inteligencia artificial focada em tirar dúvidas específicas.`
-                }]
+                    }
+                ]
             });
-            
+
             // Adicionar histórico da conversa (excluindo a mensagem de boas-vindas inicial)
             messages.slice(1).forEach(message => {
                 if (message.type === 'user') {
@@ -75,7 +77,7 @@ const AITutor = ({ navigate }) => {
                     });
                 }
             });
-            
+
             // Adicionar a nova mensagem do usuário
             conversationHistory.push({
                 role: 'user',
@@ -169,11 +171,164 @@ const AITutor = ({ navigate }) => {
         ]);
     };
 
+    // Função para formatar texto com markdown básico e expressões matemáticas
+    const formatText = text => {
+        if (!text) return '';
+
+        const lines = text.split('\n');
+
+        return lines.map((line, lineIndex) => {
+            if (!line.trim()) {
+                return <div key={lineIndex} className="h-2" />;
+            }
+
+            // Função recursiva para processar uma string e aplicar formatações
+            const processString = str => {
+                const parts = [];
+                let remaining = str;
+                let keyCounter = 0;
+
+                // Processar negritos (**texto**)
+                const boldRegex = /\*\*([^*]+)\*\*/;
+                let match = remaining.match(boldRegex);
+
+                while (match) {
+                    const beforeMatch = remaining.substring(0, match.index);
+                    const boldText = match[1];
+                    const afterMatch = remaining.substring(
+                        match.index + match[0].length
+                    );
+
+                    // Adicionar texto antes do negrito
+                    if (beforeMatch) {
+                        parts.push(
+                            ...processSimpleText(beforeMatch, keyCounter)
+                        );
+                        keyCounter += beforeMatch.length;
+                    }
+
+                    // Adicionar texto em negrito
+                    parts.push(
+                        <strong
+                            key={`bold-${lineIndex}-${keyCounter++}`}
+                            className="font-bold text-blue-300"
+                        >
+                            {boldText}
+                        </strong>
+                    );
+
+                    remaining = afterMatch;
+                    match = remaining.match(boldRegex);
+                }
+
+                // Processar texto restante
+                if (remaining) {
+                    parts.push(...processSimpleText(remaining, keyCounter));
+                }
+
+                return parts;
+            };
+
+            // Função para processar texto simples (sem negritos) e destacar elementos matemáticos
+            const processSimpleText = (str, startKey = 0) => {
+                const parts = [];
+                let keyCounter = startKey;
+
+                // Regex para expressões matemáticas comuns
+                const mathPatterns = [
+                    // Frações como a/b, (a+b)/c, x²/2a
+                    /(\([^)]+\)|[a-zA-Z0-9²³⁴⁵⁶⁷⁸⁹⁰]+)\s*\/\s*(\([^)]+\)|[a-zA-Z0-9²³⁴⁵⁶⁷⁸⁹⁰]+)/g,
+                    // Expoentes como x², a³
+                    /([a-zA-Z0-9]+)[²³⁴⁵⁶⁷⁸⁹⁰]/g,
+                    // Equações como ax² + bx + c = 0
+                    /([a-zA-Z0-9²³⁴⁵⁶⁷⁸⁹⁰]+\s*[+\-]\s*[a-zA-Z0-9²³⁴⁵⁶⁷⁸⁹⁰]+\s*[+\-]\s*[a-zA-Z0-9²³⁴⁵⁶⁷⁸⁹⁰]+\s*=\s*[0-9]+)/g
+                ];
+
+                let processedStr = str;
+                const mathElements = [];
+
+                // Encontrar todos os elementos matemáticos
+                mathPatterns.forEach(pattern => {
+                    let match;
+                    while ((match = pattern.exec(str)) !== null) {
+                        mathElements.push({
+                            start: match.index,
+                            end: match.index + match[0].length,
+                            content: match[0],
+                            type: 'math'
+                        });
+                    }
+                });
+
+                // Ordenar por posição
+                mathElements.sort((a, b) => a.start - b.start);
+
+                let lastIndex = 0;
+
+                mathElements.forEach(element => {
+                    // Adicionar texto antes do elemento matemático
+                    if (element.start > lastIndex) {
+                        const beforeText = str.substring(
+                            lastIndex,
+                            element.start
+                        );
+                        if (beforeText.trim()) {
+                            parts.push(
+                                <span key={`text-${keyCounter++}`}>
+                                    {beforeText}
+                                </span>
+                            );
+                        }
+                    }
+
+                    // Adicionar elemento matemático destacado
+                    parts.push(
+                        <span
+                            key={`math-${keyCounter++}`}
+                            className="text-yellow-300 font-mono bg-gray-800 px-1 rounded"
+                        >
+                            {element.content}
+                        </span>
+                    );
+
+                    lastIndex = element.end;
+                });
+
+                // Adicionar texto restante
+                if (lastIndex < str.length) {
+                    const remainingText = str.substring(lastIndex);
+                    if (remainingText.trim()) {
+                        parts.push(
+                            <span key={`text-${keyCounter++}`}>
+                                {remainingText}
+                            </span>
+                        );
+                    }
+                }
+
+                // Se não há elementos matemáticos, retornar texto simples
+                if (parts.length === 0) {
+                    parts.push(
+                        <span key={`simple-${keyCounter++}`}>{str}</span>
+                    );
+                }
+
+                return parts;
+            };
+
+            return (
+                <div key={lineIndex} className={lineIndex > 0 ? 'mt-2' : ''}>
+                    {processString(line)}
+                </div>
+            );
+        });
+    };
+
     // Função para detectar se a última mensagem da AI pergunta sobre profundidade
     const shouldShowProfundidadeShortcuts = () => {
         const lastMessage = messages[messages.length - 1];
         if (!lastMessage || lastMessage.type !== 'ai') return false;
-        
+
         // Mostra os botões sempre após uma resposta da IA (exceto a mensagem inicial de boas-vindas)
         return messages.length > 1;
     };
@@ -245,9 +400,17 @@ const AITutor = ({ navigate }) => {
                                             : 'bg-gray-700 text-white'
                                     }`}
                                 >
-                                    <p className="text-sm whitespace-pre-wrap">
-                                        {message.content}
-                                    </p>
+                                    <div className="text-sm">
+                                        {message.type === 'user' ? (
+                                            <p className="whitespace-pre-wrap">
+                                                {message.content}
+                                            </p>
+                                        ) : (
+                                            <div className="formatted-content">
+                                                {formatText(message.content)}
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -293,11 +456,13 @@ const AITutor = ({ navigate }) => {
                             <Send className="w-5 h-5" />
                         </button>
                     </div>
-                    
+
                     {/* Shortcuts de Profundidade */}
                     {shouldShowProfundidadeShortcuts() && (
                         <div className="mt-3 pt-3 border-t border-gray-700">
-                            <p className="text-gray-400 text-xs mb-2">🎯 Nível de profundidade:</p>
+                            <p className="text-gray-400 text-xs mb-2">
+                                🎯 Nível de profundidade:
+                            </p>
                             <div className="flex space-x-2">
                                 <button
                                     onClick={() => setInputMessage('breve')}
