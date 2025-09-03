@@ -1,7 +1,7 @@
 //Database
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize(
-    'postgresql://postgres.mxcgphlxcthshylssfbf:e4HrCJAthtUszP8l@aws-0-us-east-2.pooler.supabase.com:6543/postgres',
+    'postgresql://postgres.mnihwnmsktkdlqwjulte:FoVegj0vPGNZIYDx@aws-1-sa-east-1.pooler.supabase.com:6543/postgres',
     {
         host: 'localhost',
         dialect: 'postgres', // Alterado de 'mysql' para 'postgres'
