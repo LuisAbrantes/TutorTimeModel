@@ -214,7 +214,9 @@ app.put('/api/tutorials/:id', async function (req, res) {
         }
 
         // Normalizar o valor de 'dia'
-        const diaNormalizado = req.body.diaREQ ? normalizarDia(req.body.diaREQ) : tutorial.dia;
+        const diaNormalizado = req.body.diaREQ
+            ? normalizarDia(req.body.diaREQ)
+            : tutorial.dia;
 
         // Update the tutorial
         await Monitorias.update(
@@ -243,7 +245,10 @@ app.put('/api/tutorials/:id', async function (req, res) {
         res.json(result);
     } catch (error) {
         console.error('Error updating tutorial:', error);
-        res.status(500).json({ error: 'Failed to update tutorial', details: error.message });
+        res.status(500).json({
+            error: 'Failed to update tutorial',
+            details: error.message
+        });
     }
 });
 
