@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
-import { Search, AlertCircle, X, List, Grid, Trash, Check } from 'lucide-react';
+import { Search, AlertCircle, X, List, Grid, Trash, Check, Pencil } from 'lucide-react';
 
 const API_BASE_URL = 'http://localhost:3000/api';
 const DEFAULT_IMAGE = '/logo.png';
@@ -14,6 +14,7 @@ const Manage = ({ senha, navigate }) => {
     const [activeTab, setActiveTab] = useState('card');
     const [deleteConfirm, setDeleteConfirm] = useState(null);
     const [filterBy, setFilterBy] = useState('all');
+    const [editingTutorial, setEditingTutorial] = useState(null);
 
     const [formData, setFormData] = useState({
         monitorREQ: '',
@@ -23,6 +24,14 @@ const Manage = ({ senha, navigate }) => {
         localREQ: '',
         descricaoREQ: '',
         materiaREQ: ''
+    });
+
+    const [editFormData, setEditFormData] = useState({
+        monitorREQ: '',
+        professorREQ: '',
+        horarioREQ: '',
+        diaREQ: '',
+        localREQ: ''
     });
 
     const [newSubject, setNewSubject] = useState({
@@ -213,6 +222,69 @@ const Manage = ({ senha, navigate }) => {
         }
     };
 
+    // Função para iniciar edição de um tutorial
+    const startEditTutorial = (tutorial) => {
+        setEditFormData({
+            monitorREQ: tutorial.Monitor.nome,
+            professorREQ: tutorial.Professor.nome,
+            horarioREQ: tutorial.horario,
+            diaREQ: tutorial.dia,
+            localREQ: tutorial.local
+        });
+        setEditingTutorial(tutorial);
+    };
+
+    // Função para cancelar edição
+    const cancelEdit = () => {
+        setEditingTutorial(null);
+        setEditFormData({
+            monitorREQ: '',
+            professorREQ: '',
+            horarioREQ: '',
+            diaREQ: '',
+            localREQ: ''
+        });
+    };
+
+    // Handler para mudanças no formulário de edição
+    const handleEditInputChange = e => {
+        const { name, value } = e.target;
+        setEditFormData({
+            ...editFormData,
+            [name]: value
+        });
+    };
+
+    // Função para salvar edição
+    const handleEditTutorial = async (e) => {
+        e.preventDefault();
+        
+        try {
+            setLoading(true);
+            
+            await axios.put(
+                `${API_BASE_URL}/tutorials/${editingTutorial.id}`,
+                editFormData
+            );
+
+            // Recarregar todos os tutoriais para garantir dados completos com associações
+            const tutorialsResponse = await axios.get(`${API_BASE_URL}/tutorials`);
+            const processedTutorials = tutorialsResponse.data.map(tutorial => ({
+                ...tutorial,
+                imagemUrl: tutorial.imagemUrl || DEFAULT_IMAGE
+            }));
+            setTutorials(processedTutorials);
+
+            // Fechar modal de edição
+            cancelEdit();
+            setLoading(false);
+        } catch (err) {
+            console.error('Error updating tutorial:', err);
+            setError('Failed to update tutorial. Please try again.');
+            setLoading(false);
+        }
+    };
+
     // Filtrar e ordenar tutoriais com base nos critérios de pesquisa
     const filteredTutorials = useMemo(() => {
         if (!searchTerm && filterBy === 'all') return tutorials;
@@ -277,6 +349,122 @@ const Manage = ({ senha, navigate }) => {
 
     return (
         <div className="min-h-screen dark:bg-gray-900 bg-light transition-colors duration-300">
+            {/* Modal de Edição */}
+            {editingTutorial && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-gradient-to-br dark:from-[#1c1c24] dark:to-[#2a2a3a] from-white to-gray-100 rounded-xl p-6 w-full max-w-md shadow-2xl border dark:border-primary/20 border-primary/30">
+                        <div className="flex justify-between items-center mb-6">
+                            <h2 className="text-2xl font-semibold dark:text-white text-gray-900">
+                                Editar Monitoria
+                            </h2>
+                            <button
+                                onClick={cancelEdit}
+                                className="dark:text-gray-400 text-gray-600 hover:text-primary transition-colors"
+                            >
+                                <X className="h-6 w-6" />
+                            </button>
+                        </div>
+
+                        <div className="mb-4 p-3 dark:bg-primary/10 bg-primary/5 rounded-lg">
+                            <p className="dark:text-gray-300 text-gray-700 text-sm">
+                                <span className="text-primary font-medium">Matéria:</span>{' '}
+                                {editingTutorial.Materia.nome}
+                            </p>
+                        </div>
+
+                        <form onSubmit={handleEditTutorial} className="space-y-4">
+                            <div>
+                                <label className="block dark:text-gray-300 text-gray-700 mb-2">
+                                    Monitor:
+                                </label>
+                                <input
+                                    type="text"
+                                    name="monitorREQ"
+                                    value={editFormData.monitorREQ}
+                                    onChange={handleEditInputChange}
+                                    className="w-full h-[45px] dark:bg-white/5 bg-white border dark:border-white/10 border-gray-300 rounded-xl px-4 dark:text-white text-gray-900"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block dark:text-gray-300 text-gray-700 mb-2">
+                                    Professor:
+                                </label>
+                                <input
+                                    type="text"
+                                    name="professorREQ"
+                                    value={editFormData.professorREQ}
+                                    onChange={handleEditInputChange}
+                                    className="w-full h-[45px] dark:bg-white/5 bg-white border dark:border-white/10 border-gray-300 rounded-xl px-4 dark:text-white text-gray-900"
+                                    required
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block dark:text-gray-300 text-gray-700 mb-2">
+                                        Horário:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="horarioREQ"
+                                        value={editFormData.horarioREQ}
+                                        onChange={handleEditInputChange}
+                                        className="w-full h-[45px] dark:bg-white/5 bg-white border dark:border-white/10 border-gray-300 rounded-xl px-4 dark:text-white text-gray-900"
+                                        required
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block dark:text-gray-300 text-gray-700 mb-2">
+                                        Dia:
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="diaREQ"
+                                        value={editFormData.diaREQ}
+                                        onChange={handleEditInputChange}
+                                        className="w-full h-[45px] dark:bg-white/5 bg-white border dark:border-white/10 border-gray-300 rounded-xl px-4 dark:text-white text-gray-900"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block dark:text-gray-300 text-gray-700 mb-2">
+                                    Local:
+                                </label>
+                                <input
+                                    type="text"
+                                    name="localREQ"
+                                    value={editFormData.localREQ}
+                                    onChange={handleEditInputChange}
+                                    className="w-full h-[45px] dark:bg-white/5 bg-white border dark:border-white/10 border-gray-300 rounded-xl px-4 dark:text-white text-gray-900"
+                                    required
+                                />
+                            </div>
+
+                            <div className="flex gap-3 pt-2">
+                                <button
+                                    type="button"
+                                    onClick={cancelEdit}
+                                    className="flex-1 h-[50px] bg-gray-500/20 dark:text-gray-300 text-gray-700 border-none rounded-xl font-medium text-base cursor-pointer transition-all hover:bg-gray-500/30"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="flex-1 h-[50px] bg-gradient-to-r from-primary to-secondary border-none rounded-xl text-white font-medium text-base cursor-pointer transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/30"
+                                >
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
             <div className="container mx-auto px-4 py-8 pt-20">
                 <h1 className="text-3xl font-bold text-center mb-8 dark:text-white text-gray-900">
                     Painel de Administração
@@ -677,7 +865,7 @@ const Manage = ({ senha, navigate }) => {
                                             {tutorial.descricao}
                                         </p>
 
-                                        <div className="mt-4 flex justify-end">
+                                        <div className="mt-4 flex justify-end gap-2">
                                             {deleteConfirm &&
                                             deleteConfirm.type === 'tutorial' &&
                                             deleteConfirm.id === tutorial.id ? (
@@ -701,18 +889,29 @@ const Manage = ({ senha, navigate }) => {
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <button
-                                                    onClick={() =>
-                                                        confirmDelete(
-                                                            'tutorial',
-                                                            tutorial.id
-                                                        )
-                                                    }
-                                                    className="px-4 py-2 bg-red-500/20 text-red-400 rounded hover:bg-red-500 hover:text-white transition-colors flex items-center"
-                                                >
-                                                    <Trash className="w-4 h-4 mr-2" />
-                                                    Deletar
-                                                </button>
+                                                <>
+                                                    <button
+                                                        onClick={() =>
+                                                            startEditTutorial(tutorial)
+                                                        }
+                                                        className="px-4 py-2 bg-blue-500/20 text-blue-400 rounded hover:bg-blue-500 hover:text-white transition-colors flex items-center"
+                                                    >
+                                                        <Pencil className="w-4 h-4 mr-2" />
+                                                        Editar
+                                                    </button>
+                                                    <button
+                                                        onClick={() =>
+                                                            confirmDelete(
+                                                                'tutorial',
+                                                                tutorial.id
+                                                            )
+                                                        }
+                                                        className="px-4 py-2 bg-red-500/20 text-red-400 rounded hover:bg-red-500 hover:text-white transition-colors flex items-center"
+                                                    >
+                                                        <Trash className="w-4 h-4 mr-2" />
+                                                        Deletar
+                                                    </button>
+                                                </>
                                             )}
                                         </div>
                                     </div>
@@ -808,18 +1007,29 @@ const Manage = ({ senha, navigate }) => {
                                                             </button>
                                                         </div>
                                                     ) : (
-                                                        <button
-                                                            onClick={() =>
-                                                                confirmDelete(
-                                                                    'tutorial',
-                                                                    tutorial.id
-                                                                )
-                                                            }
-                                                            className="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-red-400 bg-red-500/20 hover:bg-red-500 hover:text-white"
-                                                        >
-                                                            <Trash className="w-3 h-3 mr-1" />
-                                                            Deletar
-                                                        </button>
+                                                        <div className="flex space-x-2">
+                                                            <button
+                                                                onClick={() =>
+                                                                    startEditTutorial(tutorial)
+                                                                }
+                                                                className="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-blue-400 bg-blue-500/20 hover:bg-blue-500 hover:text-white"
+                                                            >
+                                                                <Pencil className="w-3 h-3 mr-1" />
+                                                                Editar
+                                                            </button>
+                                                            <button
+                                                                onClick={() =>
+                                                                    confirmDelete(
+                                                                        'tutorial',
+                                                                        tutorial.id
+                                                                    )
+                                                                }
+                                                                className="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded shadow-sm text-red-400 bg-red-500/20 hover:bg-red-500 hover:text-white"
+                                                            >
+                                                                <Trash className="w-3 h-3 mr-1" />
+                                                                Deletar
+                                                            </button>
+                                                        </div>
                                                     )}
                                                 </td>
                                             </tr>

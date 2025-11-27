@@ -186,6 +186,67 @@ app.post('/api/tutorials', async function (req, res) {
     }
 });
 
+// UPDATE tutorial
+app.put('/api/tutorials/:id', async function (req, res) {
+    try {
+        const tutorial = await Monitorias.findOne({
+            where: { id: req.params.id }
+        });
+
+        if (!tutorial) {
+            return res.status(404).json({ error: 'Tutorial not found' });
+        }
+
+        // Update Monitor if name changed
+        if (req.body.monitorREQ) {
+            await Monitor.update(
+                { nome: req.body.monitorREQ },
+                { where: { id: tutorial.monitorId } }
+            );
+        }
+
+        // Update Professor if name changed
+        if (req.body.professorREQ) {
+            await Professor.update(
+                { nome: req.body.professorREQ },
+                { where: { id: tutorial.professorId } }
+            );
+        }
+
+        // Normalizar o valor de 'dia'
+        const diaNormalizado = req.body.diaREQ ? normalizarDia(req.body.diaREQ) : tutorial.dia;
+
+        // Update the tutorial
+        await Monitorias.update(
+            {
+                horario: req.body.horarioREQ || tutorial.horario,
+                dia: diaNormalizado,
+                local: req.body.localREQ || tutorial.local
+            },
+            { where: { id: req.params.id } }
+        );
+
+        say(chalk.bgCyan('API: Updated tutorial ID ' + req.params.id));
+        say(chalk.black('---------------'));
+
+        // Fetch the updated tutorial with associations
+        const result = await Monitorias.findOne({
+            where: { id: req.params.id },
+            include: [
+                { model: Materia, as: 'Materia' },
+                { model: Professor, as: 'Professor' },
+                { model: Monitor, as: 'Monitor' }
+            ],
+            raw: false
+        });
+
+        res.json(result);
+    } catch (error) {
+        console.error('Error updating tutorial:', error);
+        res.status(500).json({ error: 'Failed to update tutorial', details: error.message });
+    }
+});
+
 app.delete('/api/tutorials/:id', async function (req, res) {
     try {
         const monitoriadele = await Monitorias.findOne({
